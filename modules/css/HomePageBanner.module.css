@@ -1,0 +1,16 @@
+.home-banner-container{
+    padding-top: 213px;
+    padding-bottom: 201px;
+}
+.home-banner-container h1{
+    padding-right: 50px;
+}
+.btn-home-explore{
+    padding: 20px 114px;
+}
+.home-banner-container::after{
+    content: url('/images/com-shadow-banner.png');
+    position: absolute;
+    top:113px;
+    left:370px;
+}
