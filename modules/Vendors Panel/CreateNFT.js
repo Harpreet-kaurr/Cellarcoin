@@ -9,7 +9,7 @@ import {useRouter} from 'next/router'
 const CreateNFT = () => {
     const router = useRouter();
     const nftId = router.query["id"];
-    const editProperties = [];
+   
     const [data,setData] = useState("");
     const [add,setAdd] = useState(false);
     const [name,setName] = useState(" ");
@@ -114,7 +114,7 @@ const CreateNFT = () => {
             .catch(error => console.log('error', error));
         }
     },[cover,nftId])
-
+    var editProperties = [];
     useEffect(()=>{
         if(data){
             setName(data[0].name)
@@ -281,7 +281,7 @@ const CreateNFT = () => {
         </div>
         {add && editProperties &&
             <Modal modalClass="modal-verify">
-                <AddProperties editValue ={editProperties} data={additionalPropertyHandler} handler={modalHandler}></AddProperties>
+                <AddProperties editValue={editProperties} data={additionalPropertyHandler} handler={modalHandler}></AddProperties>
             </Modal>
         }
         {add && 
