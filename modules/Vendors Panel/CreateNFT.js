@@ -10,6 +10,8 @@ const CreateNFT = () => {
     const router = useRouter();
     const nftId = router.query["id"];
    
+    const [fourth,setFourth] = useState({});
+    const [fifth,setFifth] = useState({})
     const [data,setData] = useState("");
     const [add,setAdd] = useState(false);
     const [name,setName] = useState(" ");
@@ -114,15 +116,16 @@ const CreateNFT = () => {
             .catch(error => console.log('error', error));
         }
     },[cover,nftId])
-    var editProperties = [];
     useEffect(()=>{
         if(data){
+            setUrl(data[0].imageUrl)
             setName(data[0].name)
             setDesc(data[0].description)
             setWallet(data[0].walletAddress)
             setBrand(data[0].brand)
             setPremiumDrops(data[0].isPremiumDrop)
             const attributes = data[0].attributes;
+            console.log(attributes)
             for(var i=0;i<attributes.length;i++){
                 if(attributes[i].trait_type === "Bottle Size"){
                     setBottleSize(attributes[i].value);
@@ -136,10 +139,14 @@ const CreateNFT = () => {
                 else if(attributes[i].trait_type === "Spirit"){
                     setSpirit(attributes[i].value);
                 }
-                else{
-                    editProperties.push(attributes[i]);
+                else if(i == 4){
+                    setFourth(attributes[i]);
+                }
+                else if(i == 5){
+                    setFifth(attributes[i]);
                 }
             }
+
         }
     },[data])
     
@@ -183,17 +190,32 @@ const CreateNFT = () => {
             "brand":brand,
             "isPremiumDrop":premiumDrops
         });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw
-        };
-
-        fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/addNft`, requestOptions)
-        .then(response => response.json())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        if(nftId){
+            var requestOptions = {
+                method: 'PATCH',
+                headers: myHeaders,
+                body: raw
+            };
+            fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/editNft/${nftId}`, requestOptions)
+            .then(response => response.json())
+            .then(result =>{ 
+                console.log(result)
+                setData(result.data)
+            })
+            .catch(error => console.log('error', error));
+        }
+        else{
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw
+            };
+            fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/addNft`, requestOptions)
+            .then(response => response.json())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+        }
+        
     }
   return (
     <div>
@@ -279,14 +301,10 @@ const CreateNFT = () => {
                 </form>
             </div>
         </div>
-        {add && editProperties &&
-            <Modal modalClass="modal-verify">
-                <AddProperties editValue={editProperties} data={additionalPropertyHandler} handler={modalHandler}></AddProperties>
-            </Modal>
-        }
+    
         {add && 
             <Modal modalClass="modal-verify">
-                <AddProperties data={additionalPropertyHandler} handler={modalHandler}></AddProperties>
+                <AddProperties opt1={fourth} opt2={fifth} data={additionalPropertyHandler} handler={modalHandler}></AddProperties>
             </Modal>
         }
     </div>

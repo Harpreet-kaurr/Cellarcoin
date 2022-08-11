@@ -1,6 +1,6 @@
 
 import { Fragment } from "react";
-import Base from "../layout/Base";
+import Base from "../layout/base";
 import AboutBanner from "../modules/AboutBanner";
 import Accordian from "../modules/Accordian";
 import Counter from "../modules/Counter";

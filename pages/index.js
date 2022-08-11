@@ -5,7 +5,7 @@ import Footer from "../modules/Footer"
 import HomeTopBrands from "../modules/HomeTopBrands"
 import BannerSlider from "../modules/BannerSlider"
 import WineCardSlider from "../modules/WineCardSlider"
-import Base from "../layout/Base"
+import Base from "../layout/base"
 
 export default function Home() {
   return (
