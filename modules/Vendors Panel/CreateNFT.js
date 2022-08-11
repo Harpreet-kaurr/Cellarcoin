@@ -227,15 +227,15 @@ const CreateNFT = () => {
                     <div className={`d-flex d-flex-column ${styles["create-nft-wrapper"]}`}>
                         <h5 className='l-33 f-600'>Image, Video, Audio, or 3D Model</h5>
                         <h6 className={`f-400 l-25 ${styles["create-nft-file-format"]}`}>File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max size: 100 MB</h6>
-                        <div className={`d-flex d-flex-column d-align-center d-justify-center ${styles["image-input-wrapper"]}`}>
+                        <div className={`d-flex d-flex-column d-align-center d-justify-center ${styles["image-input-wrapper"]}`}  style={{backgroundImage:`url(${url})`,backgroundRepeat: 'no-repeat',backgroundSize: 'cover',backgroundPosition: 'center'}}>
                             <input
                                 type='file'
                                 ref={fileRef}
                                 multiple={false}
                                 onChange={coverHandler}
                             />  
-                            <img src='images/nft-image-icon.png'></img>
-                            {url && <p className='l-22 f-400 mt-14 text-primary'>Image Uploaded Successfully : {url}</p>}
+                            {!url &&  <img src="images/nft-image-icon.png"></img>}
+                            {/* {url && <p className='l-22 f-600 mt-14 text-primary'>Image Uploaded Successfully</p>} */}
                         </div>
                         <div className={`d-flex d-flex-column ${styles["name-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Name</h5>

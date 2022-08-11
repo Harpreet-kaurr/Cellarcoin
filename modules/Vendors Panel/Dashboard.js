@@ -7,6 +7,7 @@ import {getOnBoardFromCookie} from '../../auth/userCookies';
 
 const Dashboard = () => {
   const[data,setData] = useState('')
+  const[dashboard,setDashboard] = useState('')
   var JWTtoken = getOnBoardFromCookie();
   useEffect(()=>{
       var myHeaders = new Headers();
@@ -24,6 +25,16 @@ const Dashboard = () => {
         setData(result.data)
       })
       .catch(error => console.log('error', error));
+
+      fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/dashboard`, requestOptions)
+      .then(response => response.json())
+      .then(result =>{
+        console.log(result)
+        setDashboard(result)
+      })
+      .catch(error => console.log('error', error));
+
+
   },[])
 
   const deleteHandler = (e) =>{
@@ -49,10 +60,41 @@ const Dashboard = () => {
       <div className='vendor-container'>
         <h4 className='l-50 f-600 text-primary mt-24'>Dashboard</h4>
         <div className='d-flex d-flex-wrap gap-2 mt-24'>
-          <DashboardCards count="228" icon="images/ic_deals.png" title="Total NFTs"></DashboardCards>
-          <DashboardCards count="25,258" icon="images/ic_account.png" title="Total Volume"></DashboardCards>
+          <div className={`${styles["dashboard-cards-wrapper"]}`}>
+            <div className='d-flex d-justify-space-between'>
+              <h5 className='f-600 l-29'>{dashboard.totalNft}</h5>
+              <img src="images/ic_deals.png" className={`${styles["dashboard-cards-icon"]}`}></img>
+            </div>
+            <h6 className={`f-400 font-13 ${styles["dashboard-cards-title"]}`}>Total NFTs</h6>
+          </div>
+
+          <div className={`${styles["dashboard-cards-wrapper"]}`}>
+            <div className='d-flex d-justify-space-between'>
+              <h5 className='f-600 l-29'>{dashboard.totalVolume}</h5>
+              <img src="images/ic_account.png" className={`${styles["dashboard-cards-icon"]}`}></img>
+            </div>
+            <h6 className={`f-400 font-13 ${styles["dashboard-cards-title"]}`}>Total Volume</h6>
+          </div>
+
+          <div className={`${styles["dashboard-cards-wrapper"]}`}>
+            <div className='d-flex d-justify-space-between'>
+              <h5 className='f-600 l-29'>{dashboard.visitorFrequency}</h5>
+              <img src="images/ic_trending_up.png" className={`${styles["dashboard-cards-icon"]}`}></img>
+            </div>
+            <h6 className={`f-400 font-13 ${styles["dashboard-cards-title"]}`}>Visitor Frequency</h6>
+          </div>
+
+          <div className={`${styles["dashboard-cards-wrapper"]}`}>
+            <div className='d-flex d-justify-space-between'>
+              <h5 className='f-600 l-29'>{dashboard.totalEarnings}</h5>
+              <img src="images/ic_send.png" className={`${styles["dashboard-cards-icon"]}`}></img>
+            </div>
+            <h6 className={`f-400 font-13 ${styles["dashboard-cards-title"]}`}>Total Earnings</h6>
+          </div>
+          {/* <DashboardCards count="228" icon="images/ic_deals.png" title="Total NFTs"></DashboardCards> */}
+          {/* <DashboardCards count="25,258" icon="images/ic_account.png" title="Total Volume"></DashboardCards>
           <DashboardCards count="33.98%" icon="images/ic_trending_up.png" title="Users Conversion"></DashboardCards>
-          <DashboardCards count="$25,000" icon="images/ic_send.png" title="Total Earnings"></DashboardCards>
+          <DashboardCards count="$25,000" icon="images/ic_send.png" title="Total Earnings"></DashboardCards> */}
         </div>
         <h4 className='f-600 text-primary mt-24 mb-24'>Listed NFTs</h4>
         <div className={`${styles["dashboard-table-section-scroll"]}`}>
