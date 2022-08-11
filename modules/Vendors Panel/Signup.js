@@ -116,9 +116,10 @@ export default function Signup() {
     //form Submit Handler
 
     const formSubmit = (e) =>{
-        e.preventDefault();
+        // e.preventDefault();
         const result = validator();
-        if(result){      
+        if(result){    
+        
             createUserWithEmailAndPassword(email,password)
             .then(authUser =>{
                 var data = formatAuthUser(authUser.user);
@@ -126,16 +127,16 @@ export default function Signup() {
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization","Bearer "+data.token);
 
-                var raw ={
+                var raw =JSON.stringify({
                     "name":name,
                     "documentUrl":url
-                };
+                });
 
-                var requestOptions = JSON.stringify({
+                var requestOptions = {
                     headers: myHeaders,
                     method: 'POST',
                     body: raw
-                });
+                };
 
                 fetch("https://wine-nft.herokuapp.com/api/v1/vendor/signup", requestOptions)
                 .then(response => {

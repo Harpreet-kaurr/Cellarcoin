@@ -114,9 +114,9 @@ const Dashboard = () => {
                 </span>
                                             
                 <span className='font-14 f-500 d-flex word-break'>{item.name}</span>
-                <span className='font-14 f-500 d-flex '>{item.brand}</span>
+                <span className='font-14 f-500 d-flex'>{item.brand}</span>
                 <span className='font-14 f-500 d-flex'>ETH 2.03</span>
-                <span className='font-14 f-500 d-flex '>{item.createdTime}</span>
+                <span className='font-14 f-500 d-flex'>{item.createdTime}</span>
                 <span className={`cusror-pointer font-14 f-500 d-flex d-align-center d-justify-center`} style={{gap:"37px"}}>
                   <Link href={`/vendorListing/${item._id}`}>
                     <img src='images/Eye Icon.png'></img>

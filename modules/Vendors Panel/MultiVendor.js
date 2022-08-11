@@ -111,7 +111,7 @@ const MultiVendor = () => {
 
           <div className={`d-flex d-align-center d-justify-space-between ${styles["multi-vendor-access"]}`}>
             <h3 className='f-700 font-36 text-primary l-49'>Multiple Vendor Access</h3>
-            <div onClick={createLoginHandler} className={`font-16 f-600 l-22 d-flex d-align-center d-justify-center ${styles["create-login-id"]}`}>Create a New Login ID</div>
+            <div onClick={createLoginHandler} className={`cursor-pointer font-16 f-600 l-22 d-flex d-align-center d-justify-center ${styles["create-login-id"]}`}>Create a New Login ID</div>
           </div>
           {login === "create" && 
             <div className={`${styles["create-login-wrapper"]}`}>

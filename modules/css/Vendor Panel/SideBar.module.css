@@ -62,6 +62,9 @@
 .menu-item-wrapper.active{
     color: #780543;
 }
+.menu-item-wrapper a.active{
+    color: #780543;
+}
 .blur{
     opacity: 0.1;
 }
