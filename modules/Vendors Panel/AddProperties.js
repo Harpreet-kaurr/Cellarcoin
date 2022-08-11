@@ -31,10 +31,10 @@ const AddProperties = (props) => {
             //     console.log(values[i])
             // }
             
-                console.log(props.editValue)
+            console.log(props.editValue)
             
         }
-    },[props.editValue])
+    },[])
 
     const submitHandler = (e) =>{
         e.preventDefault();
