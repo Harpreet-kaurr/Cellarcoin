@@ -1,0 +1,91 @@
+.sell-nft-wrapper{
+    padding: 44px 149px 166px 72px;
+    overflow-x: scroll;
+    height: 100vh;
+}
+.sell-nft-img-content-wrapper{
+    margin-top: 40px;
+    gap:91px;
+}
+.sell-nft-img{
+    width: 468.11px;
+    height: 465.89px;
+    object-fit: contain;
+}
+.sell-nft-content h3{
+    line-height: 42.59px;
+}
+.nft-desc{
+    margin-top: 37px;
+}
+.contract-address-heading{
+    margin-top: 24px;
+}
+.contract-address{
+    margin-top: 16px;
+}
+.token-heading{
+    margin-top: 24px;
+}
+.token{
+    margin-top: 16px;
+}
+.set-price-wrapper{
+    margin-top: 102px;
+}
+.price-wrapper{
+    margin-top: 42px;
+}
+.price-input{
+    border-bottom: 1px solid #000000;
+}
+.price-input input{
+    border: none;
+    background-color: transparent;
+    padding:30px 0px 27px 0px;
+    font-size: 20px;
+}
+.price-input input:focus{
+    outline: none;
+}
+.price-unit{
+    background: #780543;
+    box-shadow: 0px 6px 12px rgba(253, 192, 218, 0.5);
+    border-radius: 16px;
+    width: 155px;
+    padding: 12px 0px;
+    border:none;
+    color: #FFFFFF;
+    gap:24px;
+}
+.expire-date{
+    margin-top: 64px;
+}
+.date-wrapper{
+    padding: 16px 0px;
+    width: 266px;
+    background: #DEDEDE;
+    border-radius: 16px;
+    margin-top: 24px;
+}
+.expire-instructions-1{
+    margin-top: 24px;
+}
+.expire-instructions-2{
+    margin-top: 16px;
+}
+.royalty-fee{
+    margin-top: 64px;
+    gap:16px;
+}
+.list-btn{
+    margin-top: 95px;
+}
+.list-btn button{
+    width: 191px;
+    background-color: var(--primary);
+    color: #FFFFFF;
+    border: none;
+    padding: 14px 0px;
+    border-radius: 16px;
+}

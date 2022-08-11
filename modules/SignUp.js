@@ -1,6 +1,12 @@
-import React from 'react'
+
+import React, { useState } from 'react'
 import style from './css/SignUp.module.css'
+import SignIn from './SignIn';
 const SignUp = () => {
+    const [toggle, setToggle] = useState(false);
+    const handleClick = () =>{
+        setToggle(!toggle);
+    }
   return (
     <div className={`p-absolute container-sm text-black ${style["signup-section-position"]}`}>
         <div className={`bg-pink ${style["sign-up-wrapper"]}`}>
@@ -24,8 +30,9 @@ const SignUp = () => {
             </div>
             <button className={`col-12 font-20 f-500 l-137 btn-primary ${style["btn-continue"]}`}>Continue</button>
             <button className={`col-12 font-20 f-500 l-137 btn-secondary ${style["btn-google"]}`}>Sign in with Google</button>
-            <h5 className='f-400 font-25 l-137 mt-32 text-center'>Already a member? <a className='text-primary'>Sign in</a></h5>
+            <h5 className='f-400 font-25 l-137 mt-32 text-center'>Already a member? <a onClick={handleClick} className='text-primary'>Sign in</a></h5>
         </div>
+        {toggle ? <SignIn></SignIn> : ""}
     </div>
   )
 }
