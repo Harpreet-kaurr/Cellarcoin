@@ -131,11 +131,11 @@ export default function Signup() {
                     "documentUrl":url
                 };
 
-                var requestOptions = {
+                var requestOptions = JSON.stringify({
                     headers: myHeaders,
                     method: 'POST',
                     body: raw
-                };
+                });
 
                 fetch("https://wine-nft.herokuapp.com/api/v1/vendor/signup", requestOptions)
                 .then(response => {

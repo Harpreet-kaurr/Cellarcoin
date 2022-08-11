@@ -26,7 +26,7 @@ const MultiVendor = () => {
                   <input type="text" placeholder='Phone'></input>
                   <img src='images/vendor-edit.png'></img>
                 </div>
-                <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
+                {/* <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
                   <h6 className='f-400 l-22'>Email</h6>
                   <input type="email" placeholder='Email'></input>
                   <img src='images/vendor-edit.png'></img>
@@ -35,7 +35,7 @@ const MultiVendor = () => {
                   <h6 className='f-400 l-22'>Password</h6>
                   <input type="password" placeholder='Password'></input>
                   <img src='images/vendor-edit.png'></img>
-                </div>
+                </div> */}
                 <div className={`d-flex d-justify-end ${styles["submit-btn-wrapper"]}`}>
                   <button className='font-14 l-22 f-600'>Submit</button>
                 </div>

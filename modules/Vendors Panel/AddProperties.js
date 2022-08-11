@@ -25,30 +25,28 @@ const AddProperties = (props) => {
     }
 
     useEffect(()=>{
-        if(props.editValue){
-            // var values = props.editValue;
-            // for(var i=0;i<values.length;i++){
-            //     console.log(values[i])
-            // }
-            
-            console.log(props.editValue)
-            
+        if(props.opt1){  
+            setProperty1(props.opt1.trait_type)
+            setPropertyName1(props.opt1.value)
+        }
+        if(props.opt2){  
+            setProperty2(props.opt2.trait_type)
+            setPropertyName2(props.opt2.value)
         }
     },[])
 
     const submitHandler = (e) =>{
         e.preventDefault();
-        // console.log(props.editValue)
-        // var allStates1 = {
-        //     "trait_type":property1,
-        //     "value":propertyName1
-        // }
+        var allStates1 = {
+            "trait_type":property1,
+            "value":propertyName1
+        }
        
-        // var allStates2 = {
-        //     "trait_type":property2,
-        //     "value":propertyName2
-        // }
-        // props.data(allStates1,allStates2);
+        var allStates2 = {
+            "trait_type":property2,
+            "value":propertyName2
+        }
+        props.data(allStates1,allStates2);
     }
 
   return (
