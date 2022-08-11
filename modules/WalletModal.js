@@ -2,7 +2,7 @@ import React  from 'react'
 import style from './css/WalletModal.module.css'
 const WalletModal = ({setToggle2}) => {
     const handleClick3 = () =>{
-        setToggle2(false);
+        setToggle2(prev => !prev);
     }
     
   return (

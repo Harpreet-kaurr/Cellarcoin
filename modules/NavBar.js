@@ -7,10 +7,10 @@ const NavBar = () => {
   const [toggle, setToggle] = useState(false);
   const [toggle2, setToggle2] = useState(false);
   const handleClick = () =>{
-      setToggle(!toggle);
+      setToggle(prev => !prev);
   }
   const handleClick2 = () =>{
-    setToggle2(!toggle2);
+    setToggle2(prev => !prev);
 }
   return (
     <nav className={`p-fixed col-12 ${style["navbar"]}`}>
@@ -22,16 +22,16 @@ const NavBar = () => {
                 <li className='ml-32 font-16 f-500 l-137'><Link href="/community">Community</Link></li>
                 <li className='ml-32 font-16 f-500 l-137'><Link href="/brands">Brands</Link></li>
                 <li className='ml-32 font-16 f-500 l-137'><Link href="/about">About us</Link></li>
-                <li className='ml-32 font-16 f-500 l-137'><a href="#" onClick={handleClick}>Sign in</a></li>
+                <li className='ml-32 font-16 f-500 l-137'><Link href="/login">SignIn</Link></li>
+                {/* <li className='ml-32 font-16 f-500 l-137'><a href="#" onClick={handleClick}>Sign in</a></li> */}
                 <li className='ml-32 font-16 f-500 l-137'><a onClick={handleClick2} className={`btn-primary font-13 ${style["btn-connect-wallet"]}`}>Connect Wallet</a></li>
                 <li className='ml-32'><img src='images/bell.png'></img></li>
                 <li className='ml-24'><Link href="/editprofile"><img src='images/profile-icon.png'></img></Link></li>
             </ul>
         </div>
         {toggle ? <SignUp></SignUp> : ""}
-        {toggle2 ? <WalletModal value={setToggle2}></WalletModal>:""}
-    </nav>
-    
+        {toggle2 ? <WalletModal value="setToggle2"></WalletModal>:""}
+    </nav>  
   )
 }
 

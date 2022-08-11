@@ -1,14 +1,14 @@
 import NavBar from "../modules/NavBar"
 
-const base = (props) => {
+const Base = (props) => {
   return (
-    <div className="d-flex ">
+    <div className="d-flex">
         <NavBar></NavBar>
         <main className="bg-very-light-orange col-12 pl-40 pr-40">
-            {props.children}
+          {props.children}
         </main>
     </div>
   )
 }
 
-export default base
+export default Base

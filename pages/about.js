@@ -1,4 +1,6 @@
 
+import { Fragment } from "react";
+import Base from "../layout/Base";
 import AboutBanner from "../modules/AboutBanner";
 import Accordian from "../modules/Accordian";
 import Counter from "../modules/Counter";
@@ -10,14 +12,16 @@ import OurPillars from "../modules/OurPillars";
 
 export default function about() {
     return (
-        <>  
-            <AboutBanner></AboutBanner>
-            <Counter></Counter>
-            <OurPillars></OurPillars>
-            <JoinCommunityBanner></JoinCommunityBanner>
-            <Accordian></Accordian>
-            <Newsletter></Newsletter>
+        <Fragment>  
+            <Base>
+                <AboutBanner></AboutBanner>
+                <Counter></Counter>
+                <OurPillars></OurPillars>
+                <JoinCommunityBanner></JoinCommunityBanner>
+                <Accordian></Accordian>
+                <Newsletter></Newsletter>
+            </Base>
             <Footer></Footer>
-        </>
+        </Fragment>
     );
 }

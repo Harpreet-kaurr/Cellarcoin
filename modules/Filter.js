@@ -5,7 +5,6 @@ const Filter = () => {
     const [toggle, setToggle] = useState(false);
     const handleClick = () =>{
         setToggle(!toggle);
-        console.log(toggle);
     }
   return (
     <div className='p-relative d-flex d-justify-end gap-3 mt-40 mb-32'>
