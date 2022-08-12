@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import styles from '../css/Vendor Panel/SellNFT.module.css'
 import {useRouter} from 'next/router'
@@ -8,13 +8,34 @@ const SellNFT = () => {
   const router = useRouter();
   const nftId = router.query["id"];
   var JWTtoken = getOnBoardFromCookie();
-
+  const [data,setData] = useState("")
   const[price,setPrice] = useState("");
   const[currency,setCurrency] = useState("ETH");
 
   const priceHandler  = (e) =>{
     setPrice(e.target.value)
   }
+
+  useEffect(()=>{
+    if(nftId){
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization","Bearer "+JWTtoken);
+        myHeaders.append("Content-Type","application/json");
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+
+        fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNftById/${nftId}`, requestOptions)
+        .then(response => response.json())
+        .then(result =>{
+            setData(result.data)
+        })
+        .catch(error => console.log('error', error));
+    }
+  },[nftId])
+
   const formSubmit = (e) =>{
     e.preventDefault();
     var myHeaders = new Headers();
@@ -43,20 +64,19 @@ const SellNFT = () => {
         <Header></Header>
         <div className={`${styles["sell-nft-wrapper"]}`}>
           <h2 className='font-49 f-500 l-65'>Select your sell method</h2>
-          <div className={`d-flex ${styles["sell-nft-img-content-wrapper"]}`}>
-            <img className={`col-6 ${styles["sell-nft-img"]}`} src='images/our-pillars-1.png'></img>
-            <div className={`col-6 ${styles["sell-nft-content"]}`}>
-              <h3 className='font-31 f-500'>Purple Malbec Wine 2016 Lorem ipsum dolor #08</h3>
-              <h5 className={`f-400 l-27 ${styles["nft-desc"]}`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis pretium dui, commodo sed id nunc vel pharetra. Tellus pretium egestas in massa dapibus </h5>
-              
-              <h5 className={`f-600 l-27 ${styles["contract-address-heading"]}`}>Contract Address</h5>
-              <h5 className={`f-400 l-27 ${styles["contract-address"]}`}>AQRGSGSGSGFSGDS3133#R$TQ@$</h5>
-
-              <h5 className={`f-600 l-27 ${styles["token-heading"]}`}>Token</h5>
-              <h5 className={`f-400 l-27 ${styles["token"]}`}>AQRGSGSGSGFSGDS3133#R$TQ@$</h5>
+          {data && data.map((item)=>(
+            <div className={`d-flex ${styles["sell-nft-img-content-wrapper"]}`}>
+              <img className={`col-6 ${styles["sell-nft-img"]}`} src={item.imageUrl}></img>
+              <div className={`col-6 ${styles["sell-nft-content"]}`}>
+                <h3 className='font-31 f-500'>{item.name}</h3>
+                <h5 className={`f-400 l-27 ${styles["nft-desc"]}`}>{item.description}</h5>
+                <h5 className={`f-600 l-27 ${styles["contract-address-heading"]}`}>Contract Address</h5>
+                <h5 className={`f-400 l-27 ${styles["contract-address"]}`}>AQRGSGSGSGFSGDS3133#R$TQ@$</h5>
+                <h5 className={`f-600 l-27 ${styles["token-heading"]}`}>Token</h5>
+                <h5 className={`f-400 l-27 ${styles["token"]}`}>AQRGSGSGSGFSGDS3133#R$TQ@$</h5>
+              </div>
             </div>
-          </div>
-
+          ))}
           <div className={`${styles["set-price-wrapper"]}`}>
             <h3 className='f-600 font-31'>Set Price for your NFT</h3>
             <form onSubmit={formSubmit}>
@@ -74,7 +94,7 @@ const SellNFT = () => {
               <div className={`${styles["expire-date"]}`}>
                 <h3 className='font-31 f-600 font-40'>Expiration Date</h3>
                 <div className={`d-flex d-align-center d-justify-center ${styles["date-wrapper"]}`}>
-                  <h5 className='f-500 l-28'>21/06/2022,  24:30:50</h5>
+                  <h5 className='f-500 l-28'>21/06/2022,24:30:50</h5>
                 </div>
 
                 <div className={`${styles["expire-instructions"]}`}>

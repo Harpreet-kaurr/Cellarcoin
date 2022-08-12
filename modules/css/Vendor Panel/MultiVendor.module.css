@@ -1,5 +1,5 @@
 .multi-vendor-wrapper{
-    padding: 38px 131px 0px 59px;
+    padding: 38px 131px 100px 59px;
     overflow-x: scroll;
     height: 100vh;
 }
@@ -70,7 +70,7 @@
 .multi-vendor-access{
     margin-top: 36px;
 }
-.multi-vendor-access button{
+.create-login-id{
     padding: 12px 0px;
     width: 235px;
     background: var(--primary);
@@ -102,4 +102,35 @@
 .login-cred-password-wrapper img{
     width: 20px;
     height: 14px;
+}
+.create-login-h4{
+    margin-top: 36px;
+}
+.create-login-input-wrapper{
+    margin-top: 32px;
+}
+.create-login-input-wrapper input{
+    border:none;
+    border-bottom: 1px solid #000000;
+    border-radius: 3px;
+    padding: 12px 0px;
+    width: 343px;
+    background-color: transparent;
+    margin-top: 16px;
+    font-weight: 500;
+    font-size: 16px
+}
+
+.create-login-input-wrapper input:focus{
+    outline: none;
+}
+.save-btn{
+    margin-top: 57px;
+    padding: 14px 138px;
+    width: 235px;
+    background:var(--primary);
+    box-shadow: 0px 6px 12px rgba(192, 231, 253, 0.5);
+    border-radius: 16px;
+    color: #FFFFFF;
+    border: none;
 }

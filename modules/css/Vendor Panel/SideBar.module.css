@@ -62,6 +62,9 @@
 .menu-item-wrapper.active{
     color: #780543;
 }
+.menu-item-wrapper a.active{
+    color: #780543;
+}
 .blur{
     opacity: 0.1;
 }
@@ -140,4 +143,40 @@
     font-weight: 700;
     font-size: 13px;
     line-height: 17.86px;
+}
+.logout-wrapper{
+    position: absolute;
+    bottom: 64px;
+    left: 81px;
+    color: var(--primary);
+    gap: 12px;
+}
+.wallet-dropdown{
+    padding: 23px 29px 24px 29px;
+    background: #F4F4F4;
+    border-radius: 9.14286px;
+    width:376px;
+    height:263px;
+    right: 300px;
+    top: 77px;
+}
+.wallet-cross{
+    width:13px;
+    height:13px;
+}
+.wallet-items-wrapper{
+    margin-top: 31px;
+    gap:17px;
+}
+.wallet-items{
+    background: #FFFFFF;
+    border-radius: 4.57143px;
+    padding: 12px 22px;
+}
+.wallet-items:hover{
+    background: #FFE5F3;
+}
+.wallet-items img{
+    width: 22px;
+    height: 22px;
 }

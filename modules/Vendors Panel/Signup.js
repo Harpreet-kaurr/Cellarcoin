@@ -116,9 +116,10 @@ export default function Signup() {
     //form Submit Handler
 
     const formSubmit = (e) =>{
-        e.preventDefault();
+        // e.preventDefault();
         const result = validator();
-        if(result){      
+        if(result){    
+        
             createUserWithEmailAndPassword(email,password)
             .then(authUser =>{
                 var data = formatAuthUser(authUser.user);
@@ -126,16 +127,16 @@ export default function Signup() {
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization","Bearer "+data.token);
 
-                var raw ={
+                var raw =JSON.stringify({
                     "name":name,
                     "documentUrl":url
-                };
+                });
 
-                var requestOptions = JSON.stringify({
+                var requestOptions = {
                     headers: myHeaders,
                     method: 'POST',
                     body: raw
-                });
+                };
 
                 fetch("https://wine-nft.herokuapp.com/api/v1/vendor/signup", requestOptions)
                 .then(response => {
@@ -159,10 +160,11 @@ export default function Signup() {
 
   return (
     <div className='d-flex d-flex-wrap'>
-        <div className={`col-6 col-lg-12 d-align-center d-flex d-flex-column  ${styles["signup-left"]}`}>
-            <div className='col-12'><img src="images/logo.svg" /></div>
-            <div className='col-12'><h1 className='mt-32'>CellarCoin <br/>Fine Wine</h1></div>
-            <div className='col-12'><h4>Pure grape wine Packed with good nutrient and taken care with hygine</h4></div>
+        <div className={`col-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 d-flex d-flex-column d-align-center d-justify-center ${styles["signup-left"]}`}>
+            <div><img src="images/logo.svg" /></div>
+            <div><h1 className='mt-32'>CellarCoin <br/>Fine Wine</h1></div>
+            <div><h4>Pure grape wine Packed with good nutrient and taken care with hygine</h4></div>
+            {/* <img src='images/vendor-cover.png'></img> */}
         </div>
         <div className={`col-6 col-xl-12 col-lg-6 col-md-12 col-sm-12 col-xs-12 ${styles["signup"]} d-flex d-flex-column d-justify-center`}>
             <h1 className='h1-vendore mt-48'>Welcome</h1>
