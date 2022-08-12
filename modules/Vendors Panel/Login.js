@@ -51,35 +51,41 @@ export default function Login() {
         })
       }
   return (
-    <div className='d-flex d-flex-wrap'>
-        <div className={`col-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 d-align-center d-flex d-flex-column ${styles["signup-left"]}`}>
-            <div className='col-12'><img src="images/logo.svg" /></div>
-            <div className='col-12'><h1 className='mt-32'>CellarCoin <br/>Fine Wine</h1></div>
-            <div className='col-12'><h4>Pure grape wine Packed with good nutrient and taken care with hygine</h4></div>
-            
+    <div className={`d-flex d-flex-wrap ${styles["signup-wrapper"]}`}>
+        <div className={`p-relative col-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 d-flex d-flex-column d-align-center ${styles["signup-left"]}`}>
+            <div><img src="images/logo.svg" /></div>
+            <div><h1 className='mt-32'>CellarCoin <br/>Fine Wine</h1></div>
+            <div><h4>Pure grape wine Packed with good nutrient and taken care with hygine</h4></div>
+            <img className='p-absolute' src='images/circle.png'></img>
+            <img className='p-absolute' src='images/half-bottle.png'></img>
         </div>
-        <div className={`col-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ${styles["signup"]} d-flex d-flex-column d-justify-center`}>
-            <h1>Welcome</h1>
-            <h2 >Login to your account</h2>
+        <div className={`col-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ${styles["signup"]} `}>
+            <div className={`d-flex d-justify-end ${styles["sign-up-tag"]}`}>
+                <h6 className='f-400'>New here? <span className='cursor-pointer f-700 text-primary'>Sign Up</span></h6>
+            </div>
+            <div className={`d-flex d-flex-column d-justify-center ${styles["signup-right"]}`}>
+                <h1>Welcome</h1>
+                <h2>Login to your account</h2>
+                <form onSubmit={formSubmit} className='d-flex d-flex-wrap'>
+                    <div className={`col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ${styles["input-wrapper"]}`}>
+                        <input value={email} onChange={emailHandler} type="text" placeholder='Email' required/>   
+                    </div>
+                    <div className={`col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  ${styles["input-wrapper"]} ${styles["password"]}`}>
+                        <input type="password" value={password} onChange={passwordHandler} placeholder="Password" required/>
+                        <input type="text" placeholder="Password" onChange={passwordHandler} value={password} required />
+                        <span className='d-flex d-align-center d-justify-center cursor-pointer user-select-none' onClick={viewPassword}>
+                            <img src="images/eye.png"/>
+                        </span> 
+                    </div>
 
-            <form onSubmit={formSubmit} className='d-flex d-flex-wrap'>
-                <div className={`col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ${styles["input-wrapper"]}`}>
-                    <input value={email} onChange={emailHandler} type="text" placeholder='Email' required/>   
-                </div>
-                <div className={`col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  ${styles["input-wrapper"]} ${styles["password"]}`}>
-                    <input type="password" value={password} onChange={passwordHandler} placeholder="Password" required/>
-                    <input type="text" placeholder="Password" onChange={passwordHandler} value={password} required />
-                    <span className='d-flex d-align-center d-justify-center cursor-pointer user-select-none' onClick={viewPassword}>
-                        <img src="images/eye.png"/>
-                    </span>
-                </div>
-               
-                {/* <div className='d-flex d-align-center col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-                    <input type="checkbox"/>
-                    <h5>I accept the <span className='f-700 text-primary'>Terms & Conditions</span></h5>
-                </div> */}
-                <button className={`cursor-pointer mt-32 ${styles["btn-primary"]}`}>Continue</button>
-            </form>
+                    {/* <div className='d-flex d-align-center col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+                        <input type="checkbox"/>
+                        <h5>I accept the <span className='f-700 text-primary'>Terms & Conditions</span></h5>
+                    </div> */}
+
+                    <button className={`cursor-pointer mt-32 ${styles["btn-primary"]}`}>Continue</button>
+                </form>
+            </div>
         </div>
     </div>
   )
