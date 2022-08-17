@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import styles from '../css/Vendor Panel/MultiVendor.module.css'
 import {getOnBoardFromCookie} from '../../auth/userCookies';
+import Loader from './Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const MultiVendor = () => {
   var JWTtoken = getOnBoardFromCookie();
   const [email,setEmail] = useState()
   const [password,setPassword] = useState()
   const [brand,setBrand] = useState()
   const [data,setData] = useState("");
-  const [login,setLogin] = useState("view")
+  const [login,setLogin] = useState(false)
+  const [loading,setLoading] = useState(false);
   const createLoginHandler = (e) =>{
-    setLogin("create")
+    setLogin(!login)
   }
 
   const emailHandler = (e) =>{
@@ -61,17 +66,25 @@ const MultiVendor = () => {
         headers: myHeaders,
         body: raw
       };
-
+      setLoading(true)
       fetch("https://wine-nft.herokuapp.com/api/v1/vendor/addSubVendor", requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result)
         setData(result)
+        toast.success("Sub Vendor Created Successfully",{
+          toastId:"2"
+        });
+        setLoading(false)
+        setEmail("")
+        setPassword("")
+        setBrand("")
       })
       .catch(error => console.log('error', error));
   }
   return (
     <>
+        {loading && <Loader></Loader>}
         <Header></Header>
         <div className={`${styles["multi-vendor-wrapper"]}`}>
           <h3 className='font-36 f-700 l-49 text-primary'>Profile</h3>
@@ -113,7 +126,7 @@ const MultiVendor = () => {
             <h3 className='f-700 font-36 text-primary l-49'>Multiple Vendor Access</h3>
             <div onClick={createLoginHandler} className={`cursor-pointer font-16 f-600 l-22 d-flex d-align-center d-justify-center ${styles["create-login-id"]}`}>Create a New Login ID</div>
           </div>
-          {login === "create" && 
+          {login && 
             <div className={`${styles["create-login-wrapper"]}`}>
               <h4 className={`font-24 f-600 l-22 ${styles["create-login-h4"]}`}>Create a new log in ID</h4>
               <form onSubmit={formSubmit}>
@@ -135,7 +148,7 @@ const MultiVendor = () => {
               </form>
             </div>
           }
-          {login === "view" && data && data.map((item,index)=>(
+          {!login && data && data.map((item,index)=>(
             <div className={`col-6 ${styles["multi-vendor-access-wrapper"]}`}>
               <div className={`d-flex ${styles["login-creds-wrapper"]}`}>
                 <h4 className='font-24 f-500'>{index+1}.</h4>
@@ -152,6 +165,7 @@ const MultiVendor = () => {
           ))
           }
         </div>
+        <ToastContainer/>
     </>
   )
 }
