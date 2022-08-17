@@ -7,7 +7,6 @@ const MenuBar = () => {
         <MenuItem value="Dashboard" path="/vendorDashboard" src="images/Dashboard.png" ></MenuItem>
         <MenuItem value="NFT List" path="/allnftlist" src="images/list.png"></MenuItem>
         <MenuItem value="Report" path="/vendorDashboard" src="images/list.png"></MenuItem>
-        <MenuItem value="Brand" path="/multivendor" src="images/list.png"></MenuItem>
     </ul>
   )
 }

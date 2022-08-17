@@ -103,10 +103,10 @@ const Dashboard = () => {
           <DashboardCards count="33.98%" icon="images/ic_trending_up.png" title="Users Conversion"></DashboardCards>
           <DashboardCards count="$25,000" icon="images/ic_send.png" title="Total Earnings"></DashboardCards> */}
         </div>
-        <h4 className='f-600 text-primary mt-24 mb-24'>Listed NFTs</h4>
+        {/* <h4 className='f-600 text-primary mt-24 mb-24'>Listed NFTs</h4>
         <div className={`${styles["dashboard-table-section-scroll"]}`}>
           <div className={`${styles["dashboard-table-wrapper"]}`}>
-            <div className={`${styles["dashboard-table-column"]}  bg-orange d-flex d-align-center`}>
+            <div className={`${styles["dashboard-table-column"]} bg-orange d-flex d-align-center`}>
               <span className='font-16 f-600 d-flex d-justify-space-evenly'>NFT</span>
               <span className='font-16 f-600 d-flex'>Name</span>
               <span className='font-16 f-600 d-flex'>Brand</span>
@@ -116,10 +116,9 @@ const Dashboard = () => {
             </div>
             {data && data.map((item)=>(
               <div className={`${styles["dashboard-table-column"]} ${styles["dashboard-table-column-data"]} d-flex d-align-center`}>
-                <span className='font-14 f-500 d-flex '>
+                <span className='font-14 f-500 d-flex'>
                   <img className={`${styles["dashboard-table-column-product"]}`} src={item.imageUrl}></img>
-                </span>
-                                            
+                </span>                 
                 <span className='font-14 f-500 d-flex word-break'>{item.name}</span>
                 <span className='font-14 f-500 d-flex'>{item.brand}</span>
                 <span className='font-14 f-500 d-flex'>ETH 2.03</span>
@@ -136,7 +135,7 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )

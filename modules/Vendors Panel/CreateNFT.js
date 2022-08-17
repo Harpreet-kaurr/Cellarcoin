@@ -13,7 +13,6 @@ import SmallLoader from './SmallLoader';
 const CreateNFT = () => {
     const router = useRouter();
     const nftId = router.query["id"];
-   
     const [fourth,setFourth] = useState({});
     const [fifth,setFifth] = useState({})
     const [data,setData] = useState("");
@@ -160,7 +159,6 @@ const CreateNFT = () => {
   
     const formSubmit = (e) =>{
         e.preventDefault();
-
         const attributes = [
             {
                 "trait_type":"Bottle Size",
@@ -200,10 +198,12 @@ const CreateNFT = () => {
                 headers: myHeaders,
                 body: raw
             };
+            setLoading(true)
             fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/editNft/${nftId}`, requestOptions)
             .then(response => response.json())
             .then(result =>{ 
                 setData(result.data)
+                setLoading(false)
             })
             .catch(error => console.log('error', error));
         }
@@ -213,14 +213,33 @@ const CreateNFT = () => {
                 headers: myHeaders,
                 body: raw
             };
+            setLoading(true)
             fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/addNft`, requestOptions)
             .then(response => response.json())
-            .then(result => console.log(result))
+            .then(result =>{ 
+                console.log(result)
+                setLoading(false)
+                toast.success("NFT Created Successfully",{
+                    toastId:"2"
+                });
+                setName("")
+                setDesc("")
+                setWallet("")
+                setBrand("")
+                setCover("")
+                setUrl("")
+                setPremiumDrops(false)
+                setBottleSize("")
+                setVolumn("")
+                setRegion("")
+                setSpirit("")
+            })
             .catch(error => console.log('error', error));
         }  
     }
   return (
     <div>
+         {loading && <Loader></Loader>}
         <Header></Header>
         <div style={{height:"100vh",overflow:"scroll"}}>
             <div className='col-9 vendor-container'>
@@ -236,7 +255,8 @@ const CreateNFT = () => {
                                 multiple={false}
                                 onChange={coverHandler}
                             />  
-                            {!url &&  <img src="images/nft-image-icon.png"></img>}
+                            {!loadingImg && <img src="images/nft-image-icon.png"></img>}
+                            {loadingImg && <SmallLoader></SmallLoader>}
                             {/* {url && <p className='l-22 f-600 mt-14 text-primary'>Image Uploaded Successfully</p>} */}
                         </div>
                         <div className={`d-flex d-flex-column ${styles["name-input"]}`}>
@@ -303,7 +323,7 @@ const CreateNFT = () => {
                 </form>
             </div>
         </div>
-    
+        <ToastContainer />
         {add && 
             <Modal modalClass="modal-verify">
                 <AddProperties opt1={fourth} opt2={fifth} data={additionalPropertyHandler} handler={modalHandler}></AddProperties>
