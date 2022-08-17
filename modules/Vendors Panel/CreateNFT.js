@@ -5,6 +5,10 @@ import AddProperties from './AddProperties'
 import Modal from './Modal'
 import {getOnBoardFromCookie} from '../../auth/userCookies';
 import {useRouter} from 'next/router'
+import Loader from './Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import SmallLoader from './SmallLoader';
 
 const CreateNFT = () => {
     const router = useRouter();
@@ -34,6 +38,8 @@ const CreateNFT = () => {
     const [additionalProps1,setAdditionalProps1] = useState("")
     const [cover,setCover] = useState(false);
     const [url,setUrl] = useState("");
+    const [loading,setLoading] = useState(false);
+    const [loadingImg,setLoadingImg] = useState(false);
 
     var JWTtoken = getOnBoardFromCookie();
 
@@ -58,7 +64,6 @@ const CreateNFT = () => {
     const spiritHandler = (e) =>{
         setSpirit(e.target.value);
     }
-
     const brandHandler = (e) =>{
         setBrand(e.target.value);
     }
@@ -71,13 +76,11 @@ const CreateNFT = () => {
     const coverHandler = (e) =>{
         setCover(e.target.files[0]); 
     }
-
     const additionalPropertyHandler = (data,data1) =>{
         setAdd(!add);
         setAdditionalProps(data);
         setAdditionalProps1(data1);
     }
-
     useEffect(()=>{
         if(nftId){
             var myHeaders = new Headers();
@@ -86,13 +89,14 @@ const CreateNFT = () => {
 
             var requestOptions = {
                 method: 'GET',
-                headers: myHeaders,
+                headers: myHeaders
             };
-
+            setLoading(true)
             fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNftById/${nftId}`, requestOptions)
             .then(response => response.json())
             .then(result =>{
                 setData(result.data)
+                setLoading(false)
             })
             .catch(error => console.log('error', error));
         }
@@ -106,12 +110,13 @@ const CreateNFT = () => {
                 body: formdata,
                 redirect: 'follow'
             };
-            
+            setLoadingImg(true)
             fetch("https://wine-nft.herokuapp.com/api/v1/uploadImage", requestOptions)
             .then(response => response.text())
             .then(result => {
                 var results = (JSON.parse(result))
                 setUrl(results.imageUrl)
+                setLoadingImg(false)
             })
             .catch(error => console.log('error', error));
         }
@@ -146,7 +151,6 @@ const CreateNFT = () => {
                     setFifth(attributes[i]);
                 }
             }
-
         }
     },[data])
     
@@ -199,7 +203,6 @@ const CreateNFT = () => {
             fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/editNft/${nftId}`, requestOptions)
             .then(response => response.json())
             .then(result =>{ 
-                console.log(result)
                 setData(result.data)
             })
             .catch(error => console.log('error', error));
@@ -214,8 +217,7 @@ const CreateNFT = () => {
             .then(response => response.json())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-        }
-        
+        }  
     }
   return (
     <div>
@@ -313,3 +315,4 @@ const CreateNFT = () => {
 }
 
 export default CreateNFT
+
