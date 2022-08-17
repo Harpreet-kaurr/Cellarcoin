@@ -255,7 +255,7 @@ const CreateNFT = () => {
                                 multiple={false}
                                 onChange={coverHandler}
                             />  
-                            {!loadingImg && <img src="images/nft-image-icon.png"></img>}
+                            {!loadingImg && !url && <img src="images/nft-image-icon.png"></img>}
                             {loadingImg && <SmallLoader></SmallLoader>}
                             {/* {url && <p className='l-22 f-600 mt-14 text-primary'>Image Uploaded Successfully</p>} */}
                         </div>
