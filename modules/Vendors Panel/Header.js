@@ -3,15 +3,10 @@ import styles from '.././css/Vendor Panel/SideBar.module.css'
 import Close from '../../icons/close'
 import Menu from '../../icons/menu'
 import Link from 'next/link'
-import { getUserFromCookie } from '../../auth/userCookies'
-
+import Router from 'next/router'
 const Header = (props) => {
-  var user = getUserFromCookie();
-
-  const[name,setName] = useState("");
-  
-
   const [dropdown,setDropdown] = useState(false);
+
   const dropdownHandler = () =>{
     setDropdown(!dropdown)
   }
@@ -21,7 +16,9 @@ const Header = (props) => {
     document.querySelector(`#sidebar-wrapper`).classList.toggle(styles["expand"])
     document.querySelector(`#sidebar-wrapper`).classList.toggle(styles["sidebar-wrapper"])
   }
-
+  const profileHandler = () =>{
+    Router.push("/multivendor");
+  }
   return (
     <div className={`p-relative d-flex d-align-center d-justify-space-between ${styles["header-wrapper"]}`}>
         <div role="button" onClick={sideBarHandler} className={`${styles["bar-cross"]}`}>
@@ -41,9 +38,9 @@ const Header = (props) => {
               <Link href="/createnft">Create NFT</Link>
             </button>
             <Link href="/vendorNotification"><img className={`rounded-16 cursor-pointer ${styles["header-notification-icon"]}`} src='images/Notifications.png'></img></Link>
-            <div className={`d-flex d-align-center gap-1 ${styles["header-profile-wrapper"]}`}>
+            <div onClick={profileHandler} className={`cursor-pointer d-flex d-align-center gap-1 ${styles["header-profile-wrapper"]}`}>
               <img className='cursor-pointer rounded-16 ' src='images/our-pillars-1.png'></img>
-              <h6 className='font-14 f-500 l-19'>{user.name}</h6>
+              <h6 className='font-14 f-500 l-19'>Admin</h6>
             </div>
           </div>
         </div>
@@ -67,7 +64,6 @@ const Header = (props) => {
                 <img src='images/coin-base.png'></img>
               </div>
             </div>
-            
           </div>
         }
     </div>

@@ -23,7 +23,7 @@ const AllNFT = () => {
             setData(result.data)
         })
         .catch(error => console.log('error', error));
-    },[])
+    },[data])
 
     const deleteHandler = (e) =>{
         var myHeaders = new Headers();
