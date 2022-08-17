@@ -76,21 +76,21 @@ const MultiVendor = () => {
         <div className={`${styles["multi-vendor-wrapper"]}`}>
           <h3 className='font-36 f-700 l-49 text-primary'>Profile</h3>
           <div className={`d-flex ${styles["profile-wrapper"]}`}>
-            <div className={`col-4 ${styles["vendor-panel-img"]}`}>
+            {/* <div className={`col-4 ${styles["vendor-panel-img"]}`}>
               <img src='images/vendor-panel.png'></img>
-            </div>
+            </div> */}
             <div className={`d-flex d-flex-column col-8 ${styles["profile-details-wrapper"]}`}>
               <h6 className='font-18 f-600 l-23'>Profile information</h6>
-              <form className='d-flex d-flex-column '>
+              <form className='d-flex d-flex-column'>
                 <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
                   <h6 className='f-400 l-22'>Name</h6>
-                  <input type="text" placeholder='Name'></input>
-                  <img src='images/vendor-edit.png'></img>
+                  <input type="text" placeholder='Name' readOnly></input>
+                  {/* <img src='images/vendor-edit.png'></img> */}
                 </div>
                 <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
                   <h6 className='f-400 l-22'>Phone</h6>
-                  <input type="text" placeholder='Phone'></input>
-                  <img src='images/vendor-edit.png'></img>
+                  <input type="text" placeholder='Phone' readOnly></input>
+                  {/* <img src='images/vendor-edit.png'></img> */}
                 </div>
                 {/* <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
                   <h6 className='f-400 l-22'>Email</h6>
@@ -102,9 +102,9 @@ const MultiVendor = () => {
                   <input type="password" placeholder='Password'></input>
                   <img src='images/vendor-edit.png'></img>
                 </div> */}
-                <div className={`d-flex d-justify-end ${styles["submit-btn-wrapper"]}`}>
+                {/* <div className={`d-flex d-justify-end ${styles["submit-btn-wrapper"]}`}>
                   <button className='font-14 l-22 f-600'>Submit</button>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>

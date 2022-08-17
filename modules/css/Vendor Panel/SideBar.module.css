@@ -59,7 +59,7 @@
 .menu-item-wrapper{
     color: #780543;
 }
-.menu-item-wrapper.active{
+.menu-item-wrapper.active a{
     color: #780543;
 }
 .menu-item-wrapper a.active{

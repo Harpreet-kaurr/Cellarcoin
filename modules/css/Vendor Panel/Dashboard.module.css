@@ -27,7 +27,7 @@
 }
 .dashboard-table-column{
     display: grid;
-    grid-template-columns:100px 200px 140px 200px 150px 135px;
+    grid-template-columns:minmax(100px,200px) minmax(200px,300px) minmax(140px,240px) minmax(200px,300px) minmax(150px,250px) minmax(135px,235px);
     word-break: break-all;
     padding: 5px;
     gap:14px;

@@ -4,10 +4,16 @@ import DashboardCards from './DashboardCards'
 import styles from '.././css/Vendor Panel/Dashboard.module.css'
 import Link from 'next/link'
 import {getOnBoardFromCookie} from '../../auth/userCookies';
-
+import Loader from './Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import SmallLoader from './SmallLoader';
+import {useRouter} from 'next/router'
 const Dashboard = () => {
   const[data,setData] = useState('')
   const[dashboard,setDashboard] = useState('')
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   var JWTtoken = getOnBoardFromCookie();
   useEffect(()=>{
       var myHeaders = new Headers();
@@ -19,10 +25,12 @@ const Dashboard = () => {
         headers: myHeaders,
       };
 
+      setLoading(true)
       fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNft`, requestOptions)
       .then(response => response.json())
       .then(result =>{
         setData(result.data)
+        setLoading(false)
       })
       .catch(error => console.log('error', error));
 
@@ -33,8 +41,6 @@ const Dashboard = () => {
         setDashboard(result)
       })
       .catch(error => console.log('error', error));
-
-
   },[])
 
   const deleteHandler = (e) =>{
@@ -43,14 +49,15 @@ const Dashboard = () => {
       myHeaders.append("Content-Type","application/json");
 
       var requestOptions = {
-          method: 'PATCH',
-          headers: myHeaders,
+        method: 'PATCH',
+        headers: myHeaders,
       };
-
+      setLoading(true)
       fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/deleteNft/${e.target.id}`, requestOptions)
       .then(response => response.json())
       .then(result =>{
-          setData(result.data);
+        setData(result.data);
+        setLoading(false)
       })
       .catch(error => console.log('error', error));
   }
