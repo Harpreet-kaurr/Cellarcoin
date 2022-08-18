@@ -4,18 +4,26 @@ import styles from '.././css/Vendor Panel/Listing.module.css'
 import {useRouter} from 'next/router'
 import {getOnBoardFromCookie} from '../../auth/userCookies';
 import Link from 'next/link';
-
+import SellNow from './SellNow';
+import Modal from '../Vendors Panel/Modal'
+import Loader from './Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Listing = () => {
     const router = useRouter();
     const nftId = router.query["id"];
     const[data,setData] = useState("");
     const[hasMount,setHasMount] = useState(false)
+    const[add,setAdd] = useState("")
+    const [loading, setLoading] = useState(false);
     var JWTtoken = getOnBoardFromCookie();
 
     if(hasMount){
         return data;
     }
-
+    const modalHandler = () =>{
+        setAdd(prev => !prev);
+    }
     useEffect(()=>{
         if(nftId){
             var myHeaders = new Headers();
@@ -26,11 +34,12 @@ const Listing = () => {
                 method: 'GET',
                 headers: myHeaders,
             };
-
+            setLoading(true)
             fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNftById/${nftId}`, requestOptions)
             .then(response => response.json())
             .then(result =>{
                 setData(result.data)
+                setLoading(false)
             })
             .catch(error => console.log('error', error));
         }
@@ -39,6 +48,7 @@ const Listing = () => {
   return (
     <div>
         <Header></Header>
+        {loading && <Loader></Loader>}
         <div className='vendor-container' style={{paddingTop:"24px",height:"100vh",overflow:"scroll"}}>
             <h4 className='l-50 f-600 text-primary'>Listings</h4>
             {data && data.map((item)=>(
@@ -49,9 +59,12 @@ const Listing = () => {
                         <h5 className={`f-500 ${styles["listing-content-brands"]}`}>Brand</h5>
                         <h4 className={`text-primary f-600 ${styles["listing-content-wine-name"]}`}>{item.brand}</h4>
                     
-                        <button className={`${styles["sell-now-btn"]}`}>
-                            <Link href={`/sellnft/${item._id}`}>Sell Now</Link>
-                        </button>
+                        {item.price === 0 &&  
+                            <button className={`${styles["sell-now-btn"]}`}>
+                                <Link href={`/sellnft/${item._id}`}>Sell Now</Link>
+                                {/* Sell Now */}
+                            </button>
+                        }    
                     </div>
                 </div>
             ))}
@@ -65,7 +78,7 @@ const Listing = () => {
                         <span className='font-18 f-500 d-flex'>To</span>
                         <span className='font-18 f-500 d-flex'>Date</span>
                     </div>                    
-                    <div className={` ${styles["table-column"]}`}>
+                    <div className={`${styles["table-column"]}`}>
                         <span className='font-18 f-500 d-flex'>Transfer</span>
                         <span className='text-primary font-18 f-600 d-flex'>Price</span>
                         <span className='text-primary font-18 f-500 d-flex'>LK. Davidson</span>
@@ -75,6 +88,11 @@ const Listing = () => {
                 </div>
             </div>
         </div>  
+        {add && 
+            <Modal modalClass="modal-verify">
+                <SellNow handler={modalHandler}></SellNow>
+            </Modal>
+        }
     </div>
   )
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import styles from '../css/Vendor Panel/SellNFT.module.css'
-import {useRouter} from 'next/router'
+import Router,{useRouter} from 'next/router'
 import {getOnBoardFromCookie} from '../../auth/userCookies';
-
+import Loader from './Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const SellNFT = () => {
   const router = useRouter();
   const nftId = router.query["id"];
@@ -11,7 +13,7 @@ const SellNFT = () => {
   const [data,setData] = useState("")
   const[price,setPrice] = useState("");
   const[currency,setCurrency] = useState("ETH");
-
+  const [loading, setLoading] = useState(false);
   const priceHandler  = (e) =>{
     setPrice(e.target.value)
   }
@@ -23,14 +25,15 @@ const SellNFT = () => {
         myHeaders.append("Content-Type","application/json");
 
         var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
+          method: 'GET',
+          headers: myHeaders,
         };
-
+        setLoading(true)
         fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNftById/${nftId}`, requestOptions)
         .then(response => response.json())
         .then(result =>{
-            setData(result.data)
+          setData(result.data)
+          setLoading(false)
         })
         .catch(error => console.log('error', error));
     }
@@ -53,22 +56,27 @@ const SellNFT = () => {
         body:raw,
         redirect: 'follow'
     };
-
+    setLoading(true)
     fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/setPrice/${nftId}`, requestOptions)
     .then(response => response.json())
-    .then(result => console.log(result))
+    .then(result => {
+      console.log(result)
+      Router.push("/allnftlist");
+      setLoading(false)
+    })
     .catch(error => console.log('error', error));
   }
   return (
     <>
         <Header></Header>
+        {loading && <Loader></Loader>}
         <div className={`${styles["sell-nft-wrapper"]}`}>
-          <h2 className='font-49 f-500 l-65'>Select your sell method</h2>
+          <h2 className='f-500 l-65'>Select your sell method</h2>
           {data && data.map((item)=>(
             <div className={`d-flex ${styles["sell-nft-img-content-wrapper"]}`}>
               <img className={`col-6 ${styles["sell-nft-img"]}`} src={item.imageUrl}></img>
               <div className={`col-6 ${styles["sell-nft-content"]}`}>
-                <h3 className='font-31 f-500'>{item.name}</h3>
+                <h4 className='f-500'>{item.name}</h4>
                 <h5 className={`f-400 l-27 ${styles["nft-desc"]}`}>{item.description}</h5>
                 <h5 className={`f-600 l-27 ${styles["contract-address-heading"]}`}>Contract Address</h5>
                 <h5 className={`f-400 l-27 ${styles["contract-address"]}`}>AQRGSGSGSGFSGDS3133#R$TQ@$</h5>
@@ -85,14 +93,14 @@ const SellNFT = () => {
                 <div className={`d-flex d-align-center d-justify-space-between ${styles["price-input"]}`}>
                   <input value={price} onChange={priceHandler} className='col-10' type="text"></input>
                   <div className={`d-flex d-align-center d-justify-center col-2 ${styles["price-unit"]}`}>
-                    <h5 className='font-24 f-500 l-33'>ETH</h5>
+                    <h6 className='font-24 f-500 l-33'>ETH</h6>
                     <img src='images/arrow-down-white.svg'></img>
                   </div>
                 </div>
               </div>
 
               <div className={`${styles["expire-date"]}`}>
-                <h3 className='font-31 f-600 font-40'>Expiration Date</h3>
+                <h4 className='f-600'>Expiration Date</h4>
                 <div className={`d-flex d-align-center d-justify-center ${styles["date-wrapper"]}`}>
                   <h5 className='f-500 l-28'>21/06/2022,24:30:50</h5>
                 </div>

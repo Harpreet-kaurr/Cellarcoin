@@ -6,7 +6,8 @@ const MenuBar = () => {
     <ul className={`d-flex d-flex-column p-0 m-0 list-style-none ${style["menu-bar-wrapper"]}`}>
         <MenuItem value="Dashboard" path="/vendorDashboard" src="images/Dashboard.png" ></MenuItem>
         <MenuItem value="NFT List" path="/allnftlist" src="images/list.png"></MenuItem>
-        <MenuItem value="Report" path="/vendorDashboard" src="images/list.png"></MenuItem>
+        <MenuItem value="Report" path="/report" src="images/list.png"></MenuItem>
+        <MenuItem value="Brand" path="/vendorBrand" src="images/list.png"></MenuItem>
     </ul>
   )
 }

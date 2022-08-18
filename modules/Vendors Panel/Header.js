@@ -4,6 +4,7 @@ import Close from '../../icons/close'
 import Menu from '../../icons/menu'
 import Link from 'next/link'
 import Router from 'next/router'
+import useFirebaseAuth from '../../auth/useFirebaseAuth'
 import '@rainbow-me/rainbowkit/styles.css';
 import{getDefaultWallets,RainbowKitProvider,connectorsForWallets,wallet,darkTheme,lightTheme} from '@rainbow-me/rainbowkit';
 import{ConnectButton } from '@rainbow-me/rainbowkit';
@@ -26,7 +27,14 @@ const Header = (props) => {
   const profileHandler = () =>{
     Router.push("/multivendor");
   }
-
+  const {signOut} = useFirebaseAuth();
+  const logOutHandler = () => {
+    signOut()
+    .then(()=>{
+      Router.push("/vendorlogin");
+    })
+    .catch((error)=>console.log("error while logout"))
+  }
   const{ chains, provider } = configureChains(
     [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
     [
@@ -48,6 +56,7 @@ const Header = (props) => {
       connectors,
       provider
     })
+
   return (
     <div className={`p-relative d-flex d-align-center d-justify-space-between ${styles["header-wrapper"]}`}>
         <div role="button" onClick={sideBarHandler} className={`${styles["bar-cross"]}`}>
@@ -61,7 +70,7 @@ const Header = (props) => {
               <input className='col-12' type="text" placeholder='Search' />
             </form>
           </div>
-          <div className='d-flex d-align-center gap-3'>
+          <div className='p-relative d-flex d-align-center gap-3'>
             {/* <button onClick={dropdownHandler} className={`cursor-pointer ${styles["header-buttons"]}`}>Connect Wallet</button> */}
               {/* <WagmiConfig client={wagmiClient} />
               <RainbowKitProvider chains={chains} theme={lightTheme({
@@ -91,10 +100,17 @@ const Header = (props) => {
               <Link href="/createnft">Create NFT</Link>
             </button>
             <Link href="/vendorNotification"><img className={`rounded-16 cursor-pointer ${styles["header-notification-icon"]}`} src='images/Notifications.png'></img></Link>
-            <div onClick={profileHandler} className={`cursor-pointer d-flex d-align-center gap-1 ${styles["header-profile-wrapper"]}`}>
+            <div className={`cursor-pointer d-flex d-align-center gap-1 ${styles["header-profile-wrapper"]}`}>
               <img className='cursor-pointer rounded-16' src='images/our-pillars-1.png'></img>
-              <h6 className='font-14 f-500 l-19'>Admin</h6>
+              <h6 className='font-14 f-500 l-19'>Artist_Name</h6>
+              <img onClick={dropdownHandler} className='cursor-pointer rounded-16' src='images/arrow-down.png'></img>
             </div>
+            {dropdown && 
+              <div className={`p-absolute d-flex d-flex-column d-align-center ${styles["profile-dropdown"]}`}>
+                <h6 onClick={profileHandler} className='font-10 f-500 l-22'>Profile</h6>
+                <h6 onClick={logOutHandler} className='font-10 f-500 l-22'>Log Out</h6>
+              </div>
+            }
           </div>
         </div>
         {/* {dropdown && 

@@ -1,6 +1,6 @@
 .wrapper{
-    width: 669px;
-    padding: 32px 36px 155px 48px; 
+    width:clamp(21.25rem, 17.1375rem + 20.5625vw, 41.8125rem);
+    padding: 32px clamp(1rem, 0.7500rem + 1.2500vw, 2.25rem) clamp(5.3125rem, 4.4375rem + 4.3750vw, 9.6875rem) clamp(1.75rem, 1.5000rem + 1.2500vw, 3rem); 
     background-color: #ffffff;
     border-radius: 16px;
     position: relative;
@@ -75,3 +75,4 @@
     padding: 10px 0px 10px 10px;
     border: 1px solid #780543;
 }
+
