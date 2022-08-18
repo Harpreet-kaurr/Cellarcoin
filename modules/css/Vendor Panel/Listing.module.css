@@ -74,14 +74,14 @@
 }
 .table-column{
     display: grid;
-    grid-template-columns: 200px 200px 200px 200px 160px;
+    grid-template-columns: minmax(200px,400px) minmax(200px,400px) minmax(200px,400px) minmax(200px,400px) minmax(160px,360px);
     word-break: break-all;
     padding: 21px 38px 9px 46px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .sell-now-btn{
-    margin-top: 69px;
-    padding: 14px 0px;
+    margin-top: 59px;
+    padding: 10px 0px;
     width: 191px;
     background-color: var(--primary);
     border-radius: 16px;

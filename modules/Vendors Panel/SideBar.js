@@ -25,10 +25,10 @@ const SideBar = () => {
     <div className={`${style["sidebar-wrapper"]}`} id="sidebar-wrapper">
       <SiteLogo></SiteLogo>
       <MenuBar></MenuBar>
-      <div onClick={logOutHandler} className={`cursor-pointer d-flex d-align-center d-justify-center ${style["logout-wrapper"]}`}>
+      {/* <div onClick={logOutHandler} className={`cursor-pointer d-flex d-align-center d-justify-center ${style["logout-wrapper"]}`}>
         <img src='images/vendor-logout.svg'></img>
         <h6>LogOut</h6>
-      </div>
+      </div> */}
     </div>
   )
 }

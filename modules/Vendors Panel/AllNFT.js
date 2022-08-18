@@ -8,7 +8,6 @@ import Modal from './Modal';
 import Loader from './Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const AllNFT = () => {
     const[data,setData] = useState('');
     const [isDelete,setDelete] = useState(false);
@@ -25,14 +24,15 @@ const AllNFT = () => {
             method: 'GET',
             headers: myHeaders,
         };
-        
+        setLoading(true)
         fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNft`, requestOptions)
         .then(response => response.json())
         .then(result =>{
             setData(result.data)
+            setLoading(false)
         })
         .catch(error => console.log('error', error));
-    },[data])
+    },[])
 
     const DeleteModal = () =>{
         setDelete(prev => !prev)
@@ -54,12 +54,20 @@ const AllNFT = () => {
         fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/deleteNft/${deleteUserId}`, requestOptions)
         .then(response => response.json())
         .then(result =>{
-            setData(result.data);
-            setDelete(prev => !prev);
+            fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNft`,{
+                method: 'GET', 
+                headers: myHeaders,
+            })
+            .then(response => response.json())
+            .then(results =>{
+                setData(results.data)
+            })
+            setDelete(prev => !prev)
             setLoading(false)
-            toast.success("NFT Deleted Successfully",{
-                toastId:"2"
-            });
+            // .catch(error => console.log('error', error))
+            // toast.success("NFT Deleted Successfully",{
+            //     toastId:"2"
+            // });
         })
         .catch(error => console.log('error', error));
     }
@@ -76,6 +84,7 @@ const AllNFT = () => {
                         <span className='font-16 f-600 d-flex d-justify-space-evenly'>NFT</span>
                         <span className='font-16 f-600 d-flex'>Name</span>
                         <span className='font-16 f-600 d-flex'>Brand</span>
+                        <span className='font-16 f-600 d-flex'>Status</span>
                         <span className='font-16 f-600 d-flex'>Price</span>
                         <span className='font-16 f-600 d-flex'>Created On</span>
                         <span className='font-16 f-600 d-flex d-justify-space-evenly'>Action</span>
@@ -87,7 +96,11 @@ const AllNFT = () => {
                             </span>                     
                             <span className='font-14 f-500 d-flex word-break'>{item.name}</span>
                             <span className='font-14 f-500 d-flex'>{item.brand}</span>
-                            <span className='font-14 f-500 d-flex'>ETH 2.03</span>
+                            <span className={`font-14 f-500 d-flex ${styles["nft-status"]}`}>{item.status}</span>
+                            <span className='font-14 f-500 d-flex'>
+                                {item.price === 0?" ":<img src='images/eth-sm.png'></img>}
+                                {item.price === 0?"--":item.price}
+                            </span>
                             <span className='font-14 f-500 d-flex'>{item.createdTime}</span>
                             <span className={`cusror-pointer font-14 f-500 d-flex d-align-center d-justify-center`} style={{gap:"37px"}}>
                                 <Link href={`/vendorListing/${item._id}`}>

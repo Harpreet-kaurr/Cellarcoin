@@ -10,6 +10,14 @@ const AddProperties = (props) => {
     const [property2,setProperty2] = useState("");
     const [propertyName2,setPropertyName2] = useState("");
 
+    const removeProperty1Handler = () =>{
+        setProperty1("")
+        setPropertyName1("")
+    }
+    const removeProperty2Handler = () =>{
+        setProperty2("")
+        setPropertyName2("")
+    }
     const propertyOne =(e)=>{
         setProperty1(e.target.value)
     }
@@ -71,7 +79,7 @@ const AddProperties = (props) => {
                         <h6 className='f-600 l-22'>Name</h6>
                         <input value={propertyName1} onChange={propertyNameOne} type="text"></input>
                     </div>
-                    <div className={`cursor-pointer d-flex d-align-center d-justify-center ${styles["remove-properties"]}`}>
+                    <div onClick={removeProperty1Handler} className={`cursor-pointer d-flex d-align-center d-justify-center ${styles["remove-properties"]}`}>
                         <img src='images/white-cross.png'></img>
                     </div>
                 </div>
@@ -88,7 +96,7 @@ const AddProperties = (props) => {
                         <h6 className='f-600 l-22'>Name</h6>
                         <input value={propertyName2} onChange={propertyNameTwo} type="text"></input>
                     </div>
-                    <div className={`cursor-pointer d-flex d-align-center d-justify-center ${styles["remove-properties"]}`}>
+                    <div onClick={removeProperty2Handler} className={`cursor-pointer d-flex d-align-center d-justify-center ${styles["remove-properties"]}`}>
                         <img src='images/white-cross.png'></img>
                     </div>
                 </div>

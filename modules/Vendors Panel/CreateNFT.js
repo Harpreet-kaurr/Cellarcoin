@@ -226,7 +226,6 @@ const CreateNFT = () => {
                 setDesc("")
                 setWallet("")
                 setBrand("")
-                setCover("")
                 setUrl("")
                 setPremiumDrops(false)
                 setBottleSize("")
@@ -239,7 +238,7 @@ const CreateNFT = () => {
     }
   return (
     <div>
-         {loading && <Loader></Loader>}
+        {loading && <Loader></Loader>}
         <Header></Header>
         <div style={{height:"100vh",overflow:"scroll"}}>
             <div className='col-9 vendor-container'>
@@ -278,7 +277,7 @@ const CreateNFT = () => {
                                     <img src='images/plus-icon.png'></img>
                                 </div>
                             </div>
-                            <div className={`d-flex ${styles["properties-wrapper"]}`}>
+                            <div className={`d-flex d-flex-wrap ${styles["properties-wrapper"]}`}>
                                 <div className={`col-5 ${styles["properties-name-wrapper"]}`}>
                                     <h5 className='font-24 f-600 l-33'>Bottle Size</h5>
                                     <input value={bottle} onChange={bottleHandler} className='col-12'></input>
@@ -288,7 +287,7 @@ const CreateNFT = () => {
                                     <input value={volume} onChange={volumeHandler} className='col-12'></input>
                                 </div>
                             </div>
-                            <div className={`d-flex ${styles['properties-wrapper']}`}>
+                            <div className={`d-flex d-flex-wrap ${styles['properties-wrapper']}`}>
                                 <div className={`col-5 ${styles["properties-name-wrapper"]}`}>
                                     <h5 className='font-24 f-600 l-33'>Region</h5>
                                     <input value={region} onChange={regionHandler} className='col-12'></input>

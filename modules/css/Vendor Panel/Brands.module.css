@@ -1,0 +1,13 @@
+.brands-wrapper{
+    padding: 45px 247px 213px 44px;
+}
+.brands-input{
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    height: 49px;
+    padding: 0px 20px;
+}
+.brands-input:focus{
+    outline: none;
+}
