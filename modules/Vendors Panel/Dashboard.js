@@ -63,7 +63,7 @@ const Dashboard = () => {
   return (
     <>
       <Header></Header>
-      {/* {loading && <Loader></Loader>} */}
+      {loading && <Loader></Loader>}
       <div className={`vendor-container ${styles["dashboard-container"]}`}>
         <h4 className='l-50 f-600 text-primary mt-24'>Dashboard</h4>
         <div className='d-flex d-flex-wrap gap-2 mt-24'>
@@ -184,7 +184,6 @@ const Dashboard = () => {
                 2.03
               </span>
             </div>
-            
           </div>
         </div>
       </div>
