@@ -54,3 +54,24 @@
     background-color: var(--primary);
     border: none;
 }
+.active-status-modal{
+    width: 468px;
+    height: 353px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 55px 42px;
+}
+.btn-wrapper{
+    margin-top:59px;
+    gap: 34px;
+}
+.crud-btn{
+    width: 100%;
+    padding: 10px 0px 10px 10px;
+    border: none;
+}
+.crud-btn-no{
+    width: 100%;
+    padding: 10px 0px 10px 10px;
+    border: 1px solid #780543;
+}
