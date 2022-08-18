@@ -48,7 +48,7 @@ export default function Login() {
                     setLoading(false)
                 }else{
                     removeOnBoardCookie();
-                    setOnBoardCookie(JSON.stringify(result.token));
+                    setOnBoardCookie(result.token);
                     router.push("/vendorDashboard")
                     setLoading(false)
                 }

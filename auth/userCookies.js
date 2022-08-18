@@ -6,7 +6,7 @@ export const getUserFromCookie = () => {
     var obj ={token:null}
     return obj;
   }
-  return JSON.parse(cookie);
+  return cookie;
 };
 
 export const setUserCookie = user => {
@@ -22,7 +22,7 @@ export const getOnBoardFromCookie = () => {
   if (!cookie) {
     return null;
   }
-  return (cookie);
+  return cookie;
 };
 
 export const setOnBoardCookie = token => {

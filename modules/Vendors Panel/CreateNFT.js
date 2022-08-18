@@ -241,7 +241,7 @@ const CreateNFT = () => {
         {loading && <Loader></Loader>}
         <Header></Header>
         <div style={{height:"100vh",overflow:"scroll"}}>
-            <div className='col-9 vendor-container'>
+            <div className={`col-9 vendor-container ${styles["vendor-container"]}`}>
                 <h4 className='l-50 f-600 text-primary mt-24'>Create NFT</h4>
                 <form onSubmit={formSubmit}>
                     <div className={`d-flex d-flex-column ${styles["create-nft-wrapper"]}`}>
@@ -253,6 +253,7 @@ const CreateNFT = () => {
                                 ref={fileRef}
                                 multiple={false}
                                 onChange={coverHandler}
+                                required
                             />  
                             {!loadingImg && !url && <img src="images/nft-image-icon.png"></img>}
                             {loadingImg && <SmallLoader></SmallLoader>}
@@ -260,12 +261,12 @@ const CreateNFT = () => {
                         </div>
                         <div className={`d-flex d-flex-column ${styles["name-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Name</h5>
-                            <input value={name} onChange={nameHandler} type="text"></input>
+                            <input value={name} onChange={nameHandler} type="text" required></input>
                         </div>
                         <div className={`d-flex d-flex-column ${styles["desc-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Description</h5>
                             <h6 className='font-18 f-400 l-25'>The description will be included on the item's detail page underneath its image. </h6>
-                            <input value={desc} onChange={descHandler} type="text"></input>
+                            <input value={desc} onChange={descHandler} type="text" required></input>
                         </div>
                         <div className={`d-flex d-flex-column ${styles["properties-input"]}`}>
                             <div className='d-flex d-align-center d-justify-space-between'>
@@ -298,15 +299,15 @@ const CreateNFT = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={`d-flex d-flex-column ${styles["desc-input"]}`}>
+                        {/* <div className={`d-flex d-flex-column ${styles["desc-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Enter you wallet address</h5>
                             <h6 className='font-18 f-400 l-25'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</h6>
                             <input type="text" value={wallet} onChange={walletHandler}></input>
-                        </div>
+                        </div> */}
                         <div className={`d-flex d-flex-column ${styles["desc-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Enter your Brand Name</h5>
                             <h6 className='font-18 f-400 l-25'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</h6>
-                            <input type="text" value={brand} onChange={brandHandler}></input>
+                            <input type="text" value={brand} onChange={brandHandler} required></input>
                         </div>
                         <div className={`d-flex d-flex-column ${styles["post-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Post This to</h5>

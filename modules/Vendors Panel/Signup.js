@@ -140,10 +140,10 @@ export default function Signup() {
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization","Bearer "+data.token);
 
-                var raw =JSON.stringify({
+                var raw ={
                     "name":name,
                     "documentUrl":url
-                });
+                };
 
                 var requestOptions = {
                     headers: myHeaders,

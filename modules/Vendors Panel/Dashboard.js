@@ -23,6 +23,7 @@ const Dashboard = () => {
         method: 'GET',
         headers: myHeaders,
       };
+      
 
       setLoading(true)
       fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNft`, requestOptions)
@@ -36,7 +37,7 @@ const Dashboard = () => {
       fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/dashboard`, requestOptions)
       .then(response => response.json())
       .then(result =>{
-        console.log(result)
+      
         setDashboard(result)
       })
       .catch(error => console.log('error', error));

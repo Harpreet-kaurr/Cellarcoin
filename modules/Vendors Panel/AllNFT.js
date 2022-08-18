@@ -14,8 +14,9 @@ const AllNFT = () => {
     const [deleteUserId,setDeleteUserId] = useState("")
     const [loading,setLoading] = useState(false);
     var JWTtoken = getOnBoardFromCookie();
-
+    
     useEffect(()=>{
+        
         var myHeaders = new Headers();
         myHeaders.append("Authorization","Bearer "+JWTtoken);
         myHeaders.append("Content-Type","application/json");
@@ -81,7 +82,7 @@ const AllNFT = () => {
             <div className={`${styles["dashboard-table-section-scroll"]}`}>
                 <div className={`${styles["dashboard-table-wrapper"]}`}>
                     <div className={`${styles["dashboard-table-column"]}  bg-orange d-flex d-align-center`}>
-                        <span className='font-16 f-600 d-flex d-justify-space-evenly'>NFT</span>
+                        <span className='font-16 f-600 d-flex'>NFT</span>
                         <span className='font-16 f-600 d-flex'>Name</span>
                         <span className='font-16 f-600 d-flex'>Brand</span>
                         <span className='font-16 f-600 d-flex'>Status</span>
@@ -97,7 +98,7 @@ const AllNFT = () => {
                             <span className='font-14 f-500 d-flex word-break'>{item.name}</span>
                             <span className='font-14 f-500 d-flex'>{item.brand}</span>
                             <span className={`font-14 f-500 d-flex ${styles["nft-status"]}`}>{item.status}</span>
-                            <span className='font-14 f-500 d-flex'>
+                            <span className={`font-14 f-500 d-flex d-align-center ${styles["nft-price-wrapper"]}`}>
                                 {item.price === 0?" ":<img src='images/eth-sm.png'></img>}
                                 {item.price === 0?"--":item.price}
                             </span>

@@ -188,3 +188,6 @@
     margin-top: 20px;
     grid-template-columns:minmax(100px,200px) minmax(180px,280px) ;
 }
+.nft-price-wrapper{
+    gap: 8px;
+}

@@ -202,3 +202,11 @@
     width: 22px;
     height: 22px;
 }
+@media screen and (max-width:1029px) {
+    .header-search-box{
+        display: none;
+    }
+    .header-bar-wrapper{
+        justify-content: flex-end;
+    }
+}
