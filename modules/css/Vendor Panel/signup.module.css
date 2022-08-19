@@ -84,7 +84,7 @@
     border: none;
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 140%;
     color: #0D0D0D;  
     background-color: transparent;
@@ -160,8 +160,7 @@
     height:78px;
     border: 1px dashed #000000;
     border-radius: 16px;
-    /* padding:18px 65px 15px 64px; */
-    margin: 8px 40px 0px 40px;
+    margin: 8px 0px 10px 0px;
 }
 .signup-form-upload-text h4{
     font-size: 12px;
@@ -172,7 +171,7 @@
     text-align: initial;
 }
 .signup-accepted-docs{
-    font-size: 14px;
+    font-size:clamp(0.375rem, 0.2750rem + 0.5000vw, 0.875rem);
     line-height: 28px;
     color: #0D0D0D;
     text-align: initial;
@@ -233,4 +232,35 @@
 }
 .connect-wallet-item-wrapper-show-more{
     margin: 20px 24px 13px 27px;
+}
+
+@media screen and (max-width:1018px) {
+    .policy-accepted h4{
+        font-size: 15px;
+    }
+}
+@media screen and (max-width:836px) {
+    .signup-left{
+        display: none;
+    }
+    .signup{
+        width: 100%;
+    }
+}
+@media screen and (max-width:415px) {
+    .signup-upload-docs{
+        font-size: 15px;
+    }
+    .signup-form-upload-text h4{
+        font-size: 8px;
+    }
+    .signup-form-upload-text{
+        height: 58px;
+    }
+    .signup-cover-input-wrapper{
+        height: 146px;
+    }
+    .signup form{
+        padding: 10px;
+    }
 }

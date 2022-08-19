@@ -7,6 +7,7 @@ import Loader from './Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SmallLoader from './SmallLoader';
+import axios from 'axios';
 export default function Signup() {
 
     const {createUserWithEmailAndPassword,formatAuthUser,signOut} = useFirebaseAuth(); 
@@ -89,6 +90,7 @@ export default function Signup() {
             redirect: 'follow'
         };
         setLoadingImg(true)
+
         fetch("https://wine-nft.herokuapp.com/api/v1/uploadImage", requestOptions)
         .then(response => response.text())
         .then(result => {
@@ -127,48 +129,42 @@ export default function Signup() {
             return false;
         }
     }
-
+    console.log(process.env)
     //form Submit Handler
-    const formSubmit = (e) =>{
+    const formSubmit = async(e) =>{
         e.preventDefault();
         const result = validator();
         if(result){    
             createUserWithEmailAndPassword(email,password)
-            .then(authUser =>{
+            .then(async(authUser) =>{
                 var data = formatAuthUser(authUser.user);
 
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization","Bearer "+data.token);
 
-                var raw ={
+                var raw = {
                     "name":name,
                     "documentUrl":url
                 };
 
-                var requestOptions = {
-                    headers: myHeaders,
-                    method: 'POST',
-                    body: raw
-                };
                 setLoading(true)
-                fetch("https://wine-nft.herokuapp.com/api/v1/vendor/signup", requestOptions)
+                axios.post("https://wine-nft.herokuapp.com/api/v1/vendor/signup",raw,{headers:{"Authorization":"Bearer "+data.token}})
                 .then(response => {
-                    if(response.ok){
+                    if(response.statusText === "OK"){
+                        authUser.user.sendEmailVerification();
+                        signOut();
+                        router.push("/vendorlogin")
+                        setLoading(false)
+                        toast.success("User Created Successfully",{
+                            toastId:"2"
+                        });
                         return response.json();
                     }
                     else{
                         throw new Error(response);
                     }
                 })
-                .then(result => {
-                    authUser.user.sendEmailVerification();
-                    signOut();
-                    router.push("/vendorlogin")
-                    setLoading(false)
-                    toast.success("User Created Successfully",{
-                        toastId:"2"
-                    });
-                })
+
                 .catch(error => console.log('error', error));            
             })
             .catch(error => {
@@ -216,7 +212,7 @@ export default function Signup() {
                                 <img src="images/eye.png"/>
                             </span>
                         </div>
-                        <div className='col-12 p-relative'>
+                        {/* <div className='col-12 p-relative'>
                             <div className={`col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 d-flex d-align-center d-justify-space-between ${styles["input-wrapper"]} `}>
                                 <span className={`font-20 f-400 l-28 ${styles["connect-wallet-text"]}`}>Connect your Wallet</span>
                                 <span onClick={dropdownHandler} className='d-flex d-align-center d-justify-center cursor-pointer user-select-none'>
@@ -239,11 +235,11 @@ export default function Signup() {
                                     </div>
                                     <div className={`d-flex d-justify-space-between ${styles["connect-wallet-item-wrapper"]}`}>
                                         <h6 className='f-500 l-27'>Show More Options</h6>
-                                        {/* <img src='images/MetaMask.png'></img> */}
+                                       
                                     </div>
                                 </div>
                             }
-                        </div>
+                        </div> */}
                         
                         
                         {/* {errorPass && <span className={`mb-8 font-14 f-700 text-danger`}>Please enter password.</span>}
