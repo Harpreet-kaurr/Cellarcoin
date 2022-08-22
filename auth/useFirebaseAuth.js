@@ -40,10 +40,10 @@ export default function useFirebaseAuth(){
     const setCookiesLog = async (data) => {   
         var cookie = getUserFromCookie();
         if(typeof cookie === 'undefined'){
-            setUserCookie(JSON.stringify(data));
+            setUserCookie(data);
         }
         else if(cookie.token == null){
-            setUserCookie(JSON.stringify(data));
+            setUserCookie(data);
             if(getOnBoardFromCookie() == null){
                 removeOnBoardCookie();
                 fetchToken(data);

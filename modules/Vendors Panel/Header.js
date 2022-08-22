@@ -11,7 +11,7 @@ import{ConnectButton } from '@rainbow-me/rainbowkit';
 import{chain,configureChains,createClient,WagmiConfig} from 'wagmi';
 import{ alchemyProvider} from 'wagmi/providers/alchemy';
 import{ publicProvider} from 'wagmi/providers/public';
-
+import {getOnBoardFromCookie} from '../../auth/userCookies';
 const Header = (props) => {
   const [dropdown,setDropdown] = useState(false);
 
@@ -55,6 +55,17 @@ const Header = (props) => {
     autoConnect:true,
       connectors,
       provider
+    })
+    var JWTtoken = getOnBoardFromCookie();
+    useEffect(()=>{
+      function parseJwt() {
+        if (!JWTtoken) { return; }
+        const base64Url = JWTtoken.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+      }
+      var user = parseJwt();
+      console.log(user)
     })
 
   return (

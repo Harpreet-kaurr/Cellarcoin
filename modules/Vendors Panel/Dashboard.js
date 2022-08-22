@@ -23,6 +23,7 @@ const Dashboard = () => {
         method: 'GET',
         headers: myHeaders,
       };
+      
 
       setLoading(true)
       fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNft`, requestOptions)
@@ -36,7 +37,7 @@ const Dashboard = () => {
       fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/dashboard`, requestOptions)
       .then(response => response.json())
       .then(result =>{
-        console.log(result)
+      
         setDashboard(result)
       })
       .catch(error => console.log('error', error));
@@ -110,15 +111,14 @@ const Dashboard = () => {
             <div className={`${styles["dashboard-table-section-scroll"]} ${styles["dashboard-table-scroll-nft"]}`}>
               <div className={`${styles["dashboard-table-wrapper"]}`}>
                 <div className={`${styles["dashboard-table-column-top-nft"]}  bg-orange d-flex d-align-center`}>
-                    <span className='font-16 f-600 d-flex '>No.</span>
-                    <span className='font-16 f-600 d-flex'>NFTs</span>
-                    <span className='font-16 f-600 d-flex'>Minted</span>
-                    <span className='font-16 f-600 d-flex'>Sold at</span>
-                    <span className='font-16 f-600 d-flex'>Returns</span>
+                  <span className='font-16 f-600 d-flex '>No.</span>
+                  <span className='font-16 f-600 d-flex'>NFTs</span>
+                  <span className='font-16 f-600 d-flex'>Minted</span>
+                  <span className='font-16 f-600 d-flex'>Sold at</span>
+                  <span className='font-16 f-600 d-flex'>Returns</span>
                 </div>
                    
-                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>
-                                      
+                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>              
                   <span className='font-14 f-500 d-flex word-break'>1.</span>
                   <span className='font-14 f-500 d-flex d-align-center'>
                     <img className={`${styles["dashboard-table-column-nft"]}`} src="images/our-pillars-1.png"></img>
@@ -127,10 +127,8 @@ const Dashboard = () => {
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>100%</span>
-                  
                 </div>
-                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>
-                                      
+                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>             
                   <span className='font-14 f-500 d-flex word-break'>1.</span>
                   <span className='font-14 f-500 d-flex d-align-center'>
                     <img className={`${styles["dashboard-table-column-nft"]}`} src="images/our-pillars-1.png"></img>
@@ -139,10 +137,8 @@ const Dashboard = () => {
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>100%</span>
-                  
                 </div>
-                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>
-                                      
+                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>                
                   <span className='font-14 f-500 d-flex word-break'>1.</span>
                   <span className='font-14 f-500 d-flex d-align-center'>
                     <img className={`${styles["dashboard-table-column-nft"]}`} src="images/our-pillars-1.png"></img>
@@ -151,10 +147,8 @@ const Dashboard = () => {
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>100%</span>
-                  
                 </div>
-                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>
-                                      
+                <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>               
                   <span className='font-14 f-500 d-flex word-break'>1.</span>
                   <span className='font-14 f-500 d-flex d-align-center'>
                     <img className={`${styles["dashboard-table-column-nft"]}`} src="images/our-pillars-1.png"></img>
@@ -163,7 +157,6 @@ const Dashboard = () => {
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>ETH 2.90</span>
                   <span className='font-14 f-400 d-flex'>100%</span>
-                  
                 </div>
               </div>
             </div>
