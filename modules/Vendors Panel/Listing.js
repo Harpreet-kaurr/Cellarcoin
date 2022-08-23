@@ -35,7 +35,7 @@ const Listing = () => {
                 headers: myHeaders,
             };
             setLoading(true)
-            fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNftById/${nftId}`, requestOptions)
+            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNftById/${nftId}`, requestOptions)
             .then(response => response.json())
             .then(result =>{
                 setData(result.data)
@@ -52,8 +52,8 @@ const Listing = () => {
         <div className='vendor-container' style={{paddingTop:"24px",height:"100vh",overflow:"scroll"}}>
             <h4 className='l-50 f-600 text-primary'>Listings</h4>
             {data && data.map((item)=>(
-                <div className={`mt-32 d-flex d-flex-wrap`}>
-                    <img className={`${styles["listing-img"]}`} src={item.imageUrl}></img>
+                <div className={`mt-32 d-flex`}>
+                    <img  loading='lazy' className={`${styles["listing-img"]}`} src={item.imageUrl}></img>
                     <div className={`col-5 ${styles["listing-content-wrapper"]}`}>
                         <h4 className='f-500 l-39'>{item.name}</h4>
                         <h5 className={`f-500 ${styles["listing-content-brands"]}`}>Brand</h5>

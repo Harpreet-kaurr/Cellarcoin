@@ -34,3 +34,9 @@
     width: 20px;
     height: 20px;
 }
+
+@media screen and (max-width:650px) {
+    .notification-wrapper{
+        padding: 20px 15px 14px 19px;
+    }
+}

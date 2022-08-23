@@ -134,3 +134,50 @@
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
     }
+
+    @media screen and (max-width:600px) {
+        .listing-content-brands{
+            margin-top: 10px;
+        }
+        .listing-content-wine-name{
+            margin-top: 10px;
+        }
+        .listing-content-wrapper{
+            margin-left: 20px;
+        }
+        .sell-now-btn{
+            width: 130px;
+            margin-top: 19px;
+            font-size: 14px;
+        }
+        .listing-img{
+            width: 200px;
+            height: 200px;
+        }
+        .listing-content-wrapper h4{
+            font-size: 24px;
+        }
+        .table-section-scroll{
+            padding-right: 8px;
+        }
+    }
+    
+    @media screen and (max-width:370px) {
+        .listing-img{
+            width:150px;
+            height: 180px;
+        }
+        .listing-content-wrapper h4{
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        .listing-content-brands{
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .sell-now-btn{
+            padding: 4px 0px;
+            margin-top: 5px;
+            width: 100px;
+        }
+    }

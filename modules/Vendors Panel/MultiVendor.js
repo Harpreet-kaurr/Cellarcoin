@@ -14,6 +14,8 @@ const MultiVendor = () => {
   const [data,setData] = useState("");
   const [login,setLogin] = useState(false)
   const [loading,setLoading] = useState(false);
+  const [user,setUser] = useState("")
+  const [userEmail,setUserEmail] = useState("")
   const createLoginHandler = (e) =>{
     setLogin(!login)
   }
@@ -30,6 +32,15 @@ const MultiVendor = () => {
   }
 
   useEffect(()=>{
+      function parseJwt() {
+        if (!JWTtoken) {return}
+        const base64Url = JWTtoken.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+      }
+      var user = parseJwt();
+      setUser(user.user.name)
+      setUserEmail(user.user.email)
       var myHeaders = new Headers();
       myHeaders.append("Authorization","Bearer "+JWTtoken);
       myHeaders.append("Content-Type","application/json");
@@ -39,10 +50,9 @@ const MultiVendor = () => {
         headers: myHeaders,
       };
 
-      fetch("https://wine-nft.herokuapp.com/api/v1/vendor/getSubVendor", requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getSubVendor`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result.data)
         setData(result.data)
       })
       .catch(error => console.log('error', error));
@@ -67,10 +77,9 @@ const MultiVendor = () => {
         body: raw
       };
       setLoading(true)
-      fetch("https://wine-nft.herokuapp.com/api/v1/vendor/addSubVendor", requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/addSubVendor`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result)
         setData(result)
         toast.success("Sub Vendor Created Successfully",{
           toastId:"2"
@@ -97,12 +106,12 @@ const MultiVendor = () => {
               <form className='d-flex d-flex-column'>
                 <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
                   <h6 className='f-400 l-22'>Name</h6>
-                  <input type="text" placeholder='Name' readOnly></input>
+                  <input type="text" value={user} placeholder='Name' readOnly></input>
                   {/* <img src='images/vendor-edit.png'></img> */}
                 </div>
                 <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
-                  <h6 className='f-400 l-22'>Phone</h6>
-                  <input type="text" placeholder='Phone' readOnly></input>
+                  <h6 className='f-400 l-22'>Email</h6>
+                  <input type="text" value={userEmail} readOnly></input>
                   {/* <img src='images/vendor-edit.png'></img> */}
                 </div>
                 {/* <div className={`d-flex d-align-center d-justify-center ${styles["name-input"]}`}>
@@ -124,7 +133,7 @@ const MultiVendor = () => {
 
           <div className={`d-flex d-align-center d-justify-space-between ${styles["multi-vendor-access"]}`}>
             <h3 className='f-700 font-36 text-primary l-49'>Multiple Vendor Access</h3>
-            <div onClick={createLoginHandler} className={`cursor-pointer font-16 f-600 l-22 d-flex d-align-center d-justify-center ${styles["create-login-id"]}`}>Create a New Login ID</div>
+            <div onClick={createLoginHandler} className={`cursor-pointer font-16 f-600 l-22 d-flex d-align-center d-justify-center ${styles["create-login-id"]}`}>Create Vendor</div>
           </div>
           {login && 
             <div className={`${styles["create-login-wrapper"]}`}>

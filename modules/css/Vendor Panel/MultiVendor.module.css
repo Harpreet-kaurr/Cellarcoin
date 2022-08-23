@@ -134,3 +134,50 @@
     color: #FFFFFF;
     border: none;
 }
+@media screen and (max-width:1000px) {
+    .multi-vendor-wrapper{
+        padding: 38px 31px 100px 31px;
+    }
+}
+@media screen and (max-width:768px) {
+    .multi-vendor-access-wrapper{
+        width: 100%;
+    }
+    .multi-vendor-access h3{
+        font-size: 24px;
+    }
+    .profile-details-wrapper{
+        width: 100%;
+    }
+    .multi-vendor-access h3{
+        font-size: 30px;
+    }
+}
+@media screen and (max-width:600px) {
+    .create-login-id{
+        width: 200px;
+        font-size: 14px;
+    }
+    .multi-vendor-access h3{
+        font-size: 18px;
+    }
+    .multi-vendor-access h3{
+        font-size: 26px;
+    }
+   
+}
+@media screen and (max-width:490px) {
+    .create-login-id{
+        width: 100px;
+        font-size: 10px;
+    }
+    .multi-vendor-access h3{
+        font-size: 14px;
+    }
+    .login-cred-details h4{
+        font-size: 16px;
+    }
+    .multi-vendor-wrapper{
+        padding: 38px 11px 100px 11px
+    }
+}

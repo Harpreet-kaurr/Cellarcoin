@@ -25,7 +25,7 @@ const SellNow = () => {
             headers: myHeaders,
           };
   
-          fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNftById/${nftId}`, requestOptions)
+          fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNftById/${nftId}`, requestOptions)
           .then(response => response.json())
           .then(result =>{
             setData(result.data)
@@ -46,13 +46,13 @@ const SellNow = () => {
       })
   
       var requestOptions = {
-          method: 'PATCH',
-          headers: myHeaders,
-          body:raw,
-          redirect: 'follow'
+        method: 'PATCH',
+        headers: myHeaders,
+        body:raw,
+        redirect: 'follow'
       };
   
-      fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/setPrice/${nftId}`, requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/setPrice/${nftId}`, requestOptions)
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));

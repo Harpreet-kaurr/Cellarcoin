@@ -10,7 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useRouter} from 'next/router'
 const Dashboard = () => {
   const[data,setData] = useState('')
-  const[dashboard,setDashboard] = useState('')
+  const[dashboard,setDashboard] = useState('');
+  const[nft,setNft] = useState('')
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   var JWTtoken = getOnBoardFromCookie();
@@ -23,10 +24,9 @@ const Dashboard = () => {
         method: 'GET',
         headers: myHeaders,
       };
-      
 
       setLoading(true)
-      fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNft`, requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNft`, requestOptions)
       .then(response => response.json())
       .then(result =>{
         setData(result.data)
@@ -34,11 +34,17 @@ const Dashboard = () => {
       })
       .catch(error => console.log('error', error));
 
-      fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/dashboard`, requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/dashboard`, requestOptions)
       .then(response => response.json())
       .then(result =>{
-      
         setDashboard(result)
+      })
+      .catch(error => console.log('error', error));
+
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getLatestNft`, requestOptions)
+      .then(response => response.json())
+      .then(result =>{
+        setNft(result.nft)
       })
       .catch(error => console.log('error', error));
   },[])
@@ -53,7 +59,7 @@ const Dashboard = () => {
         headers: myHeaders,
       };
       setLoading(true)
-      fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/deleteNft/${e.target.id}`, requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/deleteNft/${e.target.id}`, requestOptions)
       .then(response => response.json())
       .then(result =>{
         setData(result.data);
@@ -86,7 +92,10 @@ const Dashboard = () => {
 
           <div className={`${styles["dashboard-cards-wrapper"]}`}>
             <div className='d-flex d-justify-space-between'>
-              <h5 className='f-600 l-29'>{dashboard.visitorFrequency}</h5>
+              <h5 className='f-600 l-29'>
+                {/* {dashboard.visitorFrequency} */}
+                0
+              </h5>
               <img src="images/ic_trending_up.png" className={`${styles["dashboard-cards-icon"]}`}></img>
             </div>
             <h6 className={`f-400 font-13 ${styles["dashboard-cards-title"]}`}>Visitor Frequency</h6>
@@ -99,7 +108,6 @@ const Dashboard = () => {
             </div>
             <h6 className={`f-400 font-13 ${styles["dashboard-cards-title"]}`}>Total Earnings</h6>
           </div>
-          
         </div>
         <div className={`d-flex ${styles["nfts-wrapper"]}`}>
 
@@ -111,7 +119,7 @@ const Dashboard = () => {
             <div className={`${styles["dashboard-table-section-scroll"]} ${styles["dashboard-table-scroll-nft"]}`}>
               <div className={`${styles["dashboard-table-wrapper"]}`}>
                 <div className={`${styles["dashboard-table-column-top-nft"]}  bg-orange d-flex d-align-center`}>
-                  <span className='font-16 f-600 d-flex '>No.</span>
+                  <span className='font-16 f-600 d-flex'>No.</span>
                   <span className='font-16 f-600 d-flex'>NFTs</span>
                   <span className='font-16 f-600 d-flex'>Minted</span>
                   <span className='font-16 f-600 d-flex'>Sold at</span>
@@ -163,19 +171,23 @@ const Dashboard = () => {
           </div>
           <div className={`col-4 ${styles["new-nfts-wrapper"]}`}>
             <h5 className='f-600'>New NFTs</h5>
-            <div className={`d-flex d-justify-space-between ${styles["new-nft-wrapper"]}`}>
-              <h6 className='font-14 f-500'>NFTs</h6>
-              <h6 className='font-14 f-500'>Price</h6>
-            </div>
-            <div className={`d-flex d-justify-space-between ${styles["new-nft-inner-wrapper"]}`}>
-              <span className='font-14 f-500 d-flex'>
-                <img className={`${styles["dashboard-new-nft-img"]}`} src="images/our-pillars-1.png"></img>
-                <span className='font-14 f-500 d-flex d-align-center'>Lorem ipsum dolor sit amet,</span>
-              </span> 
-              <span className='font-14 f-600 d-flex d-align-center'>
-                <img src='images/eth-sm.png'></img>
-                2.03
-              </span>
+            <div className={`${styles["new-nft-table-wrapper"]}`}>
+              <div className={`d-flex d-justify-space-between ${styles["new-nft-wrapper"]}`}>
+                <h6 className='font-14 f-500'>NFTs</h6>
+                <h6 className='font-14 f-500'>Price</h6>
+              </div>
+              {nft && nft.map((item)=>(
+                <div className={`d-flex d-justify-space-between ${styles["new-nft-inner-wrapper"]}`}>
+                  <span className='font-14 f-500 d-flex'>
+                    <img className={`${styles["dashboard-new-nft-img"]}`} src={item.imageUrl}></img>
+                    <span className='font-14 f-500 d-flex d-align-center'>{item.name}</span>
+                  </span> 
+                  <span className='font-14 f-600 d-flex d-align-center'>
+                    {item.price === 0?"-":<img src='images/eth-sm.png'></img>}
+                    {item.price === 0?"-" : item.price}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -40,19 +40,25 @@ export default function Login() {
                 headers: myHeaders,
             };
             setLoading(true)
-            fetch("https://wine-nft.herokuapp.com/api/v1/vendor/login", requestOptions)
+            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/login`, requestOptions)
             .then(response => response.json()) 
             .then(result => {
                 if(result.message == "You are not verified by admin!"){
                     router.push("/verification")
                     setLoading(false)
-                }else{
+                }
+                else if(result.message == "This email is not registered with us"){
+                    toast.error("Email is not registered",{
+                        toastId:"2"
+                    });
+                    setLoading(false)
+                }
+                else{
                     removeOnBoardCookie();
                     setOnBoardCookie(result.token);
                     router.push("/vendorDashboard")
                     setLoading(false)
                 }
-               
             })
             .catch(error => console.log('error', error));
         })

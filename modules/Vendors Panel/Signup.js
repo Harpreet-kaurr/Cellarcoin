@@ -91,7 +91,7 @@ export default function Signup() {
         };
         setLoadingImg(true)
 
-        fetch("https://wine-nft.herokuapp.com/api/v1/uploadImage", requestOptions)
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}uploadImage`, requestOptions)
         .then(response => response.text())
         .then(result => {
             var results = (JSON.parse(result))
@@ -129,16 +129,15 @@ export default function Signup() {
             return false;
         }
     }
-    console.log(process.env)
     //form Submit Handler
-    const formSubmit = async(e) =>{
+
+    const formSubmit = (e) =>{
         e.preventDefault();
         const result = validator();
         if(result){    
             createUserWithEmailAndPassword(email,password)
             .then(async(authUser) =>{
                 var data = formatAuthUser(authUser.user);
-
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization","Bearer "+data.token);
 
@@ -148,17 +147,20 @@ export default function Signup() {
                 };
 
                 setLoading(true)
-                axios.post("https://wine-nft.herokuapp.com/api/v1/vendor/signup",raw,{headers:{"Authorization":"Bearer "+data.token}})
+                axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/signup`,raw,{headers:{"Authorization":"Bearer "+data.token}})
                 .then(response => {
-                    if(response.statusText === "OK"){
+                    if(response.data.message === "Signed up successfully!"){
                         authUser.user.sendEmailVerification();
                         signOut();
                         router.push("/vendorlogin")
                         setLoading(false)
-                        toast.success("User Created Successfully",{
+                        return response.json();
+                    }
+                    else if(response.data.message === 'Email already exist!'){
+                        setLoading(false)
+                        toast.error("Email Already Exists",{
                             toastId:"2"
                         });
-                        return response.json();
                     }
                     else{
                         throw new Error(response);
@@ -168,7 +170,7 @@ export default function Signup() {
                 .catch(error => console.log('error', error));            
             })
             .catch(error => {
-                if(error.message == 'Firebase: The email address is already in use by another account.(auth/email-already-in-use).'){
+                if(error.message == 'Firebase: The email address is already in use by another account. (auth/email-already-in-use).'){
                     toast.error("Email Already Exists",{
                         toastId:"2"
                     });
@@ -183,10 +185,10 @@ export default function Signup() {
         {loading && <Loader></Loader>}
         <div className={`d-flex d-flex-wrap ${styles["sign-up-height"]}`}>
             <div className={`col-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 d-flex d-flex-column d-align-center  ${styles["signup-left"]}`}>
-                <div><img src="images/logo.svg" /></div>
+                <div><img src="images/logo.svg"/></div>
                 <div><h1 className='mt-32'>CellarCoin <br/>Fine Wine</h1></div>
                 <div><h4>Pure grape wine Packed with good nutrient and taken care with hygine</h4></div>
-                {/* <img className='p-absolute' src='images/vendor-banner.png'></img> */}
+                {/* <img className='p-absolute' src='images/Ellipse-nft.svg'></img> */}
             </div>
             <div className={`col-d-none col-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 ${styles["signup"]} d-flex d-flex-column `}>
                 <div className={`d-flex d-justify-end ${styles["log-in-tag"]}`}>
@@ -290,8 +292,7 @@ export default function Signup() {
                 {/* <h4 className='mt-24 font-20 f-400 ml-10'>Already have an account ?<Link href="/vendorlogin" className='cursor-pointer f-700 text-primary'> Login</Link></h4> */}
             </div>
             <ToastContainer />
-        </div>
-        
+        </div> 
     </>
   )
 }

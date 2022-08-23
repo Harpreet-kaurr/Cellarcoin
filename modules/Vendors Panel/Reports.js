@@ -23,7 +23,7 @@ const Reports = () => {
         };
   
         setLoading(true)
-        fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNft`, requestOptions)
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNft`, requestOptions)
         .then(response => response.json())
         .then(result =>{
           setData(result.data)
@@ -31,7 +31,7 @@ const Reports = () => {
         })
         .catch(error => console.log('error', error));
   
-        fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/dashboard`, requestOptions)
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/dashboard`, requestOptions)
         .then(response => response.json())
         .then(result =>{
           console.log(result)

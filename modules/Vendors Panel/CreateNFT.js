@@ -39,7 +39,7 @@ const CreateNFT = () => {
     const [url,setUrl] = useState("");
     const [loading,setLoading] = useState(false);
     const [loadingImg,setLoadingImg] = useState(false);
-
+    const [isUrl, setIsUrl] = useState(false);
     var JWTtoken = getOnBoardFromCookie();
 
     const fileRef = useRef(); 
@@ -69,8 +69,8 @@ const CreateNFT = () => {
     const walletHandler = (e) =>{
         setWallet(e.target.value)
     }
-    const premiumHandler = (e) =>{
-        setPremiumDrops(e.target.checked);
+    const premiumHandler = () =>{
+        setPremiumDrops(prev => !prev);
     }
     const coverHandler = (e) =>{
         setCover(e.target.files[0]); 
@@ -80,6 +80,21 @@ const CreateNFT = () => {
         setAdditionalProps(data);
         setAdditionalProps1(data1);
     }
+
+    const validator = () =>{
+        if(url === ''){
+            setIsUrl(true);
+        }else{
+            setIsUrl(false);
+        }
+        if(!isUrl){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
     useEffect(()=>{
         if(nftId){
             var myHeaders = new Headers();
@@ -91,7 +106,7 @@ const CreateNFT = () => {
                 headers: myHeaders
             };
             setLoading(true)
-            fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/getNftById/${nftId}`, requestOptions)
+            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNftById/${nftId}`, requestOptions)
             .then(response => response.json())
             .then(result =>{
                 setData(result.data)
@@ -110,7 +125,7 @@ const CreateNFT = () => {
                 redirect: 'follow'
             };
             setLoadingImg(true)
-            fetch("https://wine-nft.herokuapp.com/api/v1/uploadImage", requestOptions)
+            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}uploadImage`, requestOptions)
             .then(response => response.text())
             .then(result => {
                 var results = (JSON.parse(result))
@@ -129,7 +144,6 @@ const CreateNFT = () => {
             setBrand(data[0].brand)
             setPremiumDrops(data[0].isPremiumDrop)
             const attributes = data[0].attributes;
-            console.log(attributes)
             for(var i=0;i<attributes.length;i++){
                 if(attributes[i].trait_type === "Bottle Size"){
                     setBottleSize(attributes[i].value);
@@ -159,82 +173,85 @@ const CreateNFT = () => {
   
     const formSubmit = (e) =>{
         e.preventDefault();
-        const attributes = [
-            {
-                "trait_type":"Bottle Size",
-                "value":bottle
-            },
-            {
-                "trait_type":"Alcohol by volume",
-                "value":volume
-            },
-            {
-                "trait_type":"Region",
-                "value":region
-            },
-            {
-                "trait_type":"Spirit",
-                "value":spirit
-            },
-            {...additionalProps},
-            {...additionalProps1}
-        ]
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization","Bearer "+JWTtoken);
-        myHeaders.append("Content-Type","application/json");
+        const result = validator();
+        if(result){    
+            const attributes = [
+                {
+                    "trait_type":"Bottle Size",
+                    "value":bottle
+                },
+                {
+                    "trait_type":"Alcohol by volume",
+                    "value":volume
+                },
+                {
+                    "trait_type":"Region",
+                    "value":region
+                },
+                {
+                    "trait_type":"Spirit",
+                    "value":spirit
+                },
+                {...additionalProps},
+                {...additionalProps1}
+            ]
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization","Bearer "+JWTtoken);
+            myHeaders.append("Content-Type","application/json");
 
-        var raw = JSON.stringify({
-            "name":name,
-            "imageUrl":url,
-            "description":desc,
-            "attributes":attributes,
-            "walletAddress":wallet,
-            "brand":brand,
-            "isPremiumDrop":premiumDrops
-        });
-        if(nftId){
-            var requestOptions = {
-                method: 'PATCH',
-                headers: myHeaders,
-                body: raw
-            };
-            setLoading(true)
-            fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/editNft/${nftId}`, requestOptions)
-            .then(response => response.json())
-            .then(result =>{ 
-                setData(result.data)
-                setLoading(false)
-            })
-            .catch(error => console.log('error', error));
+            var raw = JSON.stringify({
+                "name":name,
+                "imageUrl":url,
+                "description":desc,
+                "attributes":attributes,
+                "walletAddress":wallet,
+                "brand":brand,
+                "isPremiumDrop":premiumDrops
+            });
+            if(nftId){
+                var requestOptions = {
+                    method: 'PATCH',
+                    headers: myHeaders,
+                    body: raw
+                };
+                setLoading(true)
+                fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/editNft/${nftId}`, requestOptions)
+                .then(response => response.json())
+                .then(result =>{ 
+                    setData(result.data)
+                    setLoading(false)
+                    router.push("/allnftlist")
+                })
+                .catch(error => console.log('error', error));
+            }
+            else{
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw
+                };
+                setLoading(true)
+                fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/addNft`, requestOptions)
+                .then(response => response.json())
+                .then(result =>{ 
+                    setLoading(false)
+                    toast.success("NFT Created Successfully",{
+                        toastId:"2"
+                    });
+                    setName("")
+                    setDesc("")
+                    setWallet("")
+                    setBrand("")
+                    setUrl("")
+                    setPremiumDrops(false)
+                    setBottleSize("")
+                    setVolumn("")
+                    setRegion("")
+                    setSpirit("")
+                })
+                .catch(error => console.log('error', error));
+            }  
         }
-        else{
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw
-            };
-            setLoading(true)
-            fetch(`https://wine-nft.herokuapp.com/api/v1/vendor/addNft`, requestOptions)
-            .then(response => response.json())
-            .then(result =>{ 
-                console.log(result)
-                setLoading(false)
-                toast.success("NFT Created Successfully",{
-                    toastId:"2"
-                });
-                setName("")
-                setDesc("")
-                setWallet("")
-                setBrand("")
-                setUrl("")
-                setPremiumDrops(false)
-                setBottleSize("")
-                setVolumn("")
-                setRegion("")
-                setSpirit("")
-            })
-            .catch(error => console.log('error', error));
-        }  
     }
   return (
     <div>
@@ -253,12 +270,13 @@ const CreateNFT = () => {
                                 ref={fileRef}
                                 multiple={false}
                                 onChange={coverHandler}
-                                required
+                                // required
                             />  
                             {!loadingImg && !url && <img src="images/nft-image-icon.png"></img>}
                             {loadingImg && <SmallLoader></SmallLoader>}
                             {/* {url && <p className='l-22 f-600 mt-14 text-primary'>Image Uploaded Successfully</p>} */}
                         </div>
+                        {isUrl && <span className={`mt-24 mb-8 font-14 f-700 text-danger`}>Please upload NFT Image.</span>}
                         <div className={`d-flex d-flex-column ${styles["name-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Name</h5>
                             <input value={name} onChange={nameHandler} type="text" required></input>
@@ -312,15 +330,17 @@ const CreateNFT = () => {
                         <div className={`d-flex d-flex-column ${styles["post-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Post This to</h5>
                             <div className={`d-flex d-align-center ${styles["checkbox-text"]}`}>
-                                <input type="checkbox" ref={premium} onChange={premiumHandler}></input>
+                                {premiumDrops === true?<input type="checkbox" ref={premium} onChange={premiumHandler} checked></input>:<input type="checkbox" ref={premium} onChange={premiumHandler}></input>}
                                 <h5 className='f-500 l-28'>Premium Drops</h5>
                             </div>
                         </div>
+                      
                         <div className='d-flex d-justify-end'>
                             <button className={`font-18 f-700 l-27 bg-primary ${styles["submit-btn"]}`}>Submit</button>
                         </div>
                     </div>
                 </form>
+                
             </div>
         </div>
         <ToastContainer />
