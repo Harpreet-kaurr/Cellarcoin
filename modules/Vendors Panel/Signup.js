@@ -90,7 +90,6 @@ export default function Signup() {
             redirect: 'follow'
         };
         setLoadingImg(true)
-
         fetch(`${process.env.NEXT_PUBLIC_BASE_URL}uploadImage`, requestOptions)
         .then(response => response.text())
         .then(result => {
@@ -140,12 +139,10 @@ export default function Signup() {
                 var data = formatAuthUser(authUser.user);
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization","Bearer "+data.token);
-
                 var raw = {
                     "name":name,
                     "documentUrl":url
                 };
-
                 setLoading(true)
                 axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/signup`,raw,{headers:{"Authorization":"Bearer "+data.token}})
                 .then(response => {
@@ -166,7 +163,6 @@ export default function Signup() {
                         throw new Error(response);
                     }
                 })
-
                 .catch(error => console.log('error', error));            
             })
             .catch(error => {

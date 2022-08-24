@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import SmallLoader from './SmallLoader';
 
 const CreateNFT = () => {
+    const Web3 = require('web3');
     const router = useRouter();
     const nftId = router.query["id"];
     const [fourth,setFourth] = useState({});
@@ -172,6 +173,19 @@ const CreateNFT = () => {
     }
   
     const formSubmit = (e) =>{
+        // const web3 = new Web3("https://bsc-dataseed1.defibit.io/");
+        // const contract = await new web3.eth.Contract(contractAbi, contractAddress);
+
+        // await contract.methods
+        // .mint(/*All the arguments that are in the mint function in SC*/)
+        // .send({from : account /*acccount connected account*/})
+        // .on("error", (error) => {
+        //     console.log(error);
+        // })
+        // .then((receipt) => {
+		//     console.log(receipt)
+        // })
+
         e.preventDefault();
         const result = validator();
         if(result){    

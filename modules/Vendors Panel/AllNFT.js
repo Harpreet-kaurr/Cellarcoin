@@ -109,7 +109,7 @@ const AllNFT = () => {
                 <div className={`d-flex d-align-center rounded-16 ${styles['header-search-box']}`}>
                     <img src='images/search-icon-v.png'></img>
                     <form>
-                    <input onChange={searchHandler}  className='col-12' type="text" placeholder='Search' />
+                        <input onChange={searchHandler}  className='col-12' type="text" placeholder='Search' />
                     </form>
                 </div>
             </div>

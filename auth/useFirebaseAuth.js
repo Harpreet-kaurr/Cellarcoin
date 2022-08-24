@@ -63,7 +63,7 @@ export default function useFirebaseAuth(){
             headers: myHeaders,
             redirect: 'follow'
         };
-        fetch("https://wine-nft.herokuapp.com/api/v1/vendor/onBoarding", requestOptions)
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/onBoarding`, requestOptions)
         .then((response) => {
             return response.json();
         })

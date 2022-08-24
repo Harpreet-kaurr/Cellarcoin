@@ -23,7 +23,6 @@ export default function Login() {
     const passwordHandler = (e) =>{
         setPassword(e.target.value);
     }
-
     const signupHandler = () =>{
         router.push("/vendors")
     }
@@ -34,11 +33,11 @@ export default function Login() {
         .then(authUser => {
             var myHeaders = new Headers();
             myHeaders.append("Authorization","Bearer "+authUser.user.multiFactor.user.accessToken);
-            
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
             };
+
             setLoading(true)
             fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/login`, requestOptions)
             .then(response => response.json()) 

@@ -1,10 +1,8 @@
-import React,{useState} from 'react'
-import style from '../css/Vendor Panel/SideBar.module.css'
+import React from 'react'
 import MenuBar from './MenuBar'
 import SiteLogo from './SiteLogo'
-
+import style from '../css/Admin Panel/SideBar.module.css'
 const SideBar = () => {
-
   return (
     <div className={`${style["sidebar-wrapper"]}`} id="sidebar-wrapper">
       <SiteLogo></SiteLogo>

@@ -16,47 +16,63 @@ const Brands = () => {
   const [data,setData] = useState("")
   const [loading,setLoading] = useState(false);
   const [loadingImg,setLoadingImg] = useState(false);
+  const [isUrl, setIsUrl] = useState(false);
   const fileRef = useRef();
   var JWTtoken = getOnBoardFromCookie();
 
   const brandHandler = (e) =>{
     setBrand(e.target.value)
   }
+  const validator = () =>{
+    if(url === ''){
+      setIsUrl(true);
+    }else{
+      setIsUrl(false);
+    }
+    if(!isUrl){
+      return false;
+    }else{
+      return true;
+    }
+  }
   const formSubmit = (e) =>{
     e.preventDefault()
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization","Bearer "+JWTtoken);
-    myHeaders.append("Content-Type","application/json");
+    var result = validator();
+    if(result){
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization","Bearer "+JWTtoken);
+      myHeaders.append("Content-Type","application/json");
 
-    var raw = JSON.stringify({
-        "brandName":brand,
-        "documentUrl":url
-    });
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw
-    };
-    setLoading(true)
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/addBrand`, requestOptions)
-    .then(response => response.json())
-    .then(result =>{ 
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getBrands`,{
-          method: 'GET', 
-          headers: myHeaders,
-        })
-        .then(response => response.json())
-        .then(results =>{
-          setData(results.data)
-        })
-        toast.success("Brand Created Successfully",{
-          toastId:"2"
-        });
-        setBrand("")
-        setUrl("")
-        setLoading(false)
-    })
-    .catch(error => console.log('error', error));
+      var raw = JSON.stringify({
+          "brandName":brand,
+          "documentUrl":url
+      });
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw
+      };
+      setLoading(true)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/addBrand`, requestOptions)
+      .then(response => response.json())
+      .then(result =>{ 
+          fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getBrands`,{
+            method: 'GET', 
+            headers: myHeaders,
+          })
+          .then(response => response.json())
+          .then(results =>{
+            setData(results.data)
+          })
+          toast.success("Brand Created Successfully",{
+            toastId:"2"
+          });
+          setBrand("")
+          setUrl("")
+          setLoading(false)
+      })
+      .catch(error => console.log('error', error));
+    }
   }
 
   const coverHandler = (e) =>{

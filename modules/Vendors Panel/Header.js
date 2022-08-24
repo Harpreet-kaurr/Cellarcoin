@@ -142,7 +142,12 @@ const Header = (props) => {
                   isConnected ? (
                     "Connected! "
                   ) : (
-                    <button className={`cursor-pointer ${styles["header-buttons"]}`} onClick={() => connect()}>Connect Wallet</button>
+                    <>
+                      <button className={`cursor-pointer ${styles["header-buttons"]}`} onClick={() => connect()}>Connect Wallet</button>
+                      <div className={`d-none cursor-pointer ${styles["header-buttons-icon"]}`} onClick={() => connect()}>
+                        <img className='rounded-16 cursor-pointer ' src='images/wallet.png'></img>
+                      </div>
+                    </>
                   )
                 ) : (
                   "Please install metamask"

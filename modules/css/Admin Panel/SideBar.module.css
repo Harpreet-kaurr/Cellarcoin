@@ -187,21 +187,7 @@
     }
 }
 @media screen and (max-width:640px){
-    .header-bar-wrapper{
-        padding: 0px 10px 0px 10px;
-    }
     .header-buttons{
         display: none;
     }
-    .header-buttons-icon{
-        display: block;
-    }
-    .header-buttons-icon img{
-        /* border: 1px solid #E2E2E2;
-        padding: 4px;
-        background-color: #F8FAFB; */
-        width: 24px;
-        height: 24px;
-    }
 }
-
