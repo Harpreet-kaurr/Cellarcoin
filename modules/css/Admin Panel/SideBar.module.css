@@ -51,10 +51,10 @@
     color: #780543;
 }
 .profile-dropdown{
+    position: absolute;
     width: 153px;
-    height: 102px;
-    top: 56px;
-    left: 350px;
+    top: 51px;
+    height: 66px;
     background: #FFFFFF;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 8px 8px;

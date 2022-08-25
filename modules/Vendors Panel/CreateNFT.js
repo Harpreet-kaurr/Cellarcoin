@@ -41,6 +41,7 @@ const CreateNFT = () => {
     const [loading,setLoading] = useState(false);
     const [loadingImg,setLoadingImg] = useState(false);
     const [isUrl, setIsUrl] = useState(false);
+    const [isNameError,setNameError] = useState(false);
     var JWTtoken = getOnBoardFromCookie();
 
     const fileRef = useRef(); 
@@ -83,12 +84,17 @@ const CreateNFT = () => {
     }
 
     const validator = () =>{
+        if(name === ' '){
+            setNameError(true);
+        }else{
+            setNameError(false);
+        }
         if(url === ''){
             setIsUrl(true);
         }else{
             setIsUrl(false);
         }
-        if(!isUrl){
+        if(name === ' ' || url === ' '){
             return false;
         }else{
             return true;
@@ -295,6 +301,7 @@ const CreateNFT = () => {
                             <h5 className='font-24 f-600 l-33'>Name</h5>
                             <input value={name} onChange={nameHandler} type="text" required></input>
                         </div>
+                        {isNameError && <span className={`mt-24 mb-8 font-14 f-700 text-danger`}>Please Enter NFT Name.</span>}
                         <div className={`d-flex d-flex-column ${styles["desc-input"]}`}>
                             <h5 className='font-24 f-600 l-33'>Description</h5>
                             <h6 className='font-18 f-400 l-25'>The description will be included on the item's detail page underneath its image. </h6>

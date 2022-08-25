@@ -32,10 +32,10 @@
 }
 .dashboard-table-column{
     display: grid;
-    grid-template-columns:minmax(100px,300px) minmax(180px,380px) minmax(140px,340px) minmax(140px,340px) minmax(150px,350px) minmax(150px,350px) minmax(135px,335px);
+    grid-template-columns:minmax(200px,500px) minmax(100px,500px) minmax(200px,500px) minmax(300px,700px);
     word-break: break-all;
-    padding: 5px;
-    gap:14px;
+    padding: 5px 40px;
+    gap:34px;
     margin: 25px 10px 15px 10px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -276,4 +276,23 @@
     .new-nfts-wrapper{
         width: 100%;
     }
+}
+.dashboard-btns{
+    gap:16px;
+}
+.dashboard-accept-btn{
+    padding: 10px;
+    background: #780543;
+    border-radius: 16px;
+    width: 112px;
+}
+.dashboard-reject-btn{
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 16px;
+    width: 112px;
+    border: 1px solid #780543;
+}
+.dashboard-document{
+    text-decoration: underline;
 }

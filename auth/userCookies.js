@@ -30,3 +30,18 @@ export const setOnBoardCookie = token => {
 };
 
 export const removeOnBoardCookie = () => cookies.remove('onboarding');
+
+//admin cookies
+export const getAdminOnBoardFromCookie = () => {
+  const cookie = cookies.get('onboardingAdmin');
+  if (!cookie) {
+    return null;
+  }
+  return cookie;
+};
+
+export const setAdminOnBoardCookie = token => {
+  cookies.set('onboardingAdmin', token);
+};
+
+export const removeAdminOnBoardCookie = () => cookies.remove('onboardingAdmin');

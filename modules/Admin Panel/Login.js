@@ -1,9 +1,10 @@
 import React,{useState} from 'react'
 import styles from '../css/Admin Panel/Login.module.css'
-import {setOnBoardCookie,removeOnBoardCookie } from '../../auth/userCookies';
+import {setAdminOnBoardCookie,removeAdminOnBoardCookie } from '../../auth/userCookies';
 import {useRouter} from 'next/router'
 import Loader from '../Vendors Panel/Loader';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const [password, setPassword] = useState('');
     const [email,setEmail] = useState('')
@@ -39,16 +40,23 @@ const Login = () => {
         fetch(`${process.env.NEXT_PUBLIC_BASE_URL}admin/login`, requestOptions)
         .then(response => response.json()) 
         .then(result =>{ 
-            removeOnBoardCookie();
-            setOnBoardCookie(result.token);
-            router.push("/admindashboard")
-            setLoading(false)
+            if(result.message === "Invalid email or password!"){
+                toast.error("Invalid email or password!",{
+                    toastId:"2"
+                });
+                setLoading(false)
+            }else{
+                removeAdminOnBoardCookie()
+                setAdminOnBoardCookie(result.token)
+                router.push("/admindashboard")
+                setLoading(false)
+            }
         })
         .catch(error => console.log('error', error));
     }
   return (
     <>
-    {!loading && <Loader></Loader>}
+    {loading && <Loader></Loader>}
         <div className={`d-flex d-flex-wrap ${styles["signup-wrapper"]}`}>
             <div className={`p-relative col-6 col-xl-12 col-lg-6 col-d-none d-flex d-flex-column d-align-center ${styles["signup-left"]}`}>
                 <div><img src="images/logo.svg"/></div>
@@ -75,6 +83,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+        <ToastContainer></ToastContainer>
     </>
   )
 }
