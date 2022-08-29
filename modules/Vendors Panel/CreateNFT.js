@@ -103,74 +103,82 @@ const CreateNFT = () => {
 
 
     useEffect(()=>{
-        if(nftId){
-            var myHeaders = new Headers();
-            myHeaders.append("Authorization","Bearer "+JWTtoken);
-            myHeaders.append("Content-Type","application/json");
+        if(JWTtoken){
+            if(nftId){
+                var myHeaders = new Headers();
+                myHeaders.append("Authorization","Bearer "+JWTtoken);
+                myHeaders.append("Content-Type","application/json");
 
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders
-            };
-            setLoading(true)
-            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNftById/${nftId}`, requestOptions)
-            .then(response => response.json())
-            .then(result =>{
-                setData(result.data)
-                setLoading(false)
-            })
-            .catch(error => console.log('error', error));
-        }
-        
-        if(cover){
-            var formdata = new FormData();
-            formdata.append("image",cover);
+                var requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders
+                };
+                setLoading(true)
+                fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNftById/${nftId}`, requestOptions)
+                .then(response => response.json())
+                .then(result =>{
+                    setData(result.data)
+                    setLoading(false)
+                })
+                .catch(error => console.log('error', error));
+            }
             
-            var requestOptions = {
-                method: 'POST',
-                body: formdata,
-                redirect: 'follow'
-            };
-            setLoadingImg(true)
-            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}uploadImage`, requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                var results = (JSON.parse(result))
-                setUrl(results.imageUrl)
-                setLoadingImg(false)
-            })
-            .catch(error => console.log('error', error));
+            if(cover){
+                var formdata = new FormData();
+                formdata.append("image",cover);
+                
+                var requestOptions = {
+                    method: 'POST',
+                    body: formdata,
+                    redirect: 'follow'
+                };
+                setLoadingImg(true)
+                fetch(`${process.env.NEXT_PUBLIC_BASE_URL}uploadImage`, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    var results = (JSON.parse(result))
+                    setUrl(results.imageUrl)
+                    setLoadingImg(false)
+                })
+                .catch(error => console.log('error', error));
+            }
+        }else{
+            router.push("/vendorlogin")
         }
     },[cover,nftId])
     useEffect(()=>{
-        if(data){
-            setUrl(data[0].imageUrl)
-            setName(data[0].name)
-            setDesc(data[0].description)
-            setWallet(data[0].walletAddress)
-            setBrand(data[0].brand)
-            setPremiumDrops(data[0].isPremiumDrop)
-            const attributes = data[0].attributes;
-            for(var i=0;i<attributes.length;i++){
-                if(attributes[i].trait_type === "Bottle Size"){
-                    setBottleSize(attributes[i].value);
-                }
-                else if(attributes[i].trait_type === "Alcohol by volume"){
-                    setVolumn(attributes[i].value);
-                }
-                else if(attributes[i].trait_type === "Region"){
-                    setRegion(attributes[i].value);
-                }
-                else if(attributes[i].trait_type === "Spirit"){
-                    setSpirit(attributes[i].value);
-                }
-                else if(i == 4){
-                    setFourth(attributes[i]);
-                }
-                else if(i == 5){
-                    setFifth(attributes[i]);
+        if(JWTtoken){
+            if(data){
+                setUrl(data[0].imageUrl)
+                setName(data[0].name)
+                setDesc(data[0].description)
+                setWallet(data[0].walletAddress)
+                setBrand(data[0].brand)
+                setPremiumDrops(data[0].isPremiumDrop)
+                const attributes = data[0].attributes;
+                for(var i=0;i<attributes.length;i++){
+                    if(attributes[i].trait_type === "Bottle Size"){
+                        setBottleSize(attributes[i].value);
+                    }
+                    else if(attributes[i].trait_type === "Alcohol by volume"){
+                        setVolumn(attributes[i].value);
+                    }
+                    else if(attributes[i].trait_type === "Region"){
+                        setRegion(attributes[i].value);
+                    }
+                    else if(attributes[i].trait_type === "Spirit"){
+                        setSpirit(attributes[i].value);
+                    }
+                    else if(i == 4){
+                        setFourth(attributes[i]);
+                    }
+                    else if(i == 5){
+                        setFifth(attributes[i]);
+                    }
                 }
             }
+        }else{
+            router.push("/vendorlogin")
         }
     },[data])
     

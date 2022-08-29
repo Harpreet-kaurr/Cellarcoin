@@ -10,7 +10,6 @@ const Header = () => {
   const [user,setUser] = useState("")
   const dropdownHandler = () =>{
     setDropdown(!dropdown)
-    console.log("clicked")
   }
   const sideBarHandler = (e) => {
     e.currentTarget.classList.toggle(styles["open"]);
@@ -21,7 +20,7 @@ const Header = () => {
 
   const logOutHandler = () => {
       removeAdminOnBoardCookie();
-      Router.push("/vendorlogin");
+      Router.push("/adminlogin");
   }
   var JWTtoken = getAdminOnBoardFromCookie();
   useEffect(()=>{
@@ -32,7 +31,6 @@ const Header = () => {
       return JSON.parse(window.atob(base64));
     }
     var user = parseJwt();
-    console.log(user.role)
     setUser(user.role)
   },[])
   return (

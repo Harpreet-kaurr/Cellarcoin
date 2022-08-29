@@ -35,14 +35,19 @@ const Header = (props) => {
   
   var JWTtoken = getOnBoardFromCookie();
   useEffect(()=>{
-    function parseJwt() {
-      if (!JWTtoken) {return}
-      const base64Url = JWTtoken.split('.')[1];
-      const base64 = base64Url.replace('-', '+').replace('_', '/');
-      return JSON.parse(window.atob(base64));
+    if(JWTtoken){
+      function parseJwt() {
+        if (!JWTtoken) {return}
+        const base64Url = JWTtoken.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+      }
+      var user = parseJwt();
+      setUser(user.user.name)
+    }else{
+      Router.push("/vendorlogin")
     }
-    var user = parseJwt();
-    setUser(user.user.name)
+    
   },[])
 
   //web3 modal

@@ -15,14 +15,16 @@ const Dashboard = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   var JWTtoken = getOnBoardFromCookie();
+
   useEffect(()=>{
+    if(JWTtoken){
       var myHeaders = new Headers();
       myHeaders.append("Authorization","Bearer "+JWTtoken);
       myHeaders.append("Content-Type","application/json");
 
       var requestOptions = {
         method: 'GET',
-        headers: myHeaders,
+        headers: myHeaders
       };
 
       setLoading(true)
@@ -47,6 +49,9 @@ const Dashboard = () => {
         setNft(result.nft)
       })
       .catch(error => console.log('error', error));
+    }else{
+      router.push("/vendorlogin")
+    }
   },[])
 
   const deleteHandler = (e) =>{
@@ -58,6 +63,7 @@ const Dashboard = () => {
         method: 'PATCH',
         headers: myHeaders,
       };
+
       setLoading(true)
       fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/deleteNft/${e.target.id}`, requestOptions)
       .then(response => response.json())
@@ -110,7 +116,6 @@ const Dashboard = () => {
           </div>
         </div>
         <div className={`d-flex ${styles["nfts-wrapper"]}`}>
-
           <div className={`col-8 ${styles["top-nfts-wrapper"]}`}>
             <div className={` ${styles["top-nfts"]}`}>
               <h5 className='f-600'>Top Performing NFTs</h5>
@@ -125,7 +130,6 @@ const Dashboard = () => {
                   <span className='font-16 f-600 d-flex'>Sold at</span>
                   <span className='font-16 f-600 d-flex'>Returns</span>
                 </div>
-                   
                 <div className={`${styles["dashboard-table-column-top-nft"]} ${styles["dashboard-table-column-nft-data"]} d-flex d-align-center`}>              
                   <span className='font-14 f-500 d-flex word-break'>1.</span>
                   <span className='font-14 f-500 d-flex d-align-center'>

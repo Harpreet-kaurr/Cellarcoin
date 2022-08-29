@@ -32,7 +32,7 @@
 }
 .dashboard-table-column{
     display: grid;
-    grid-template-columns:minmax(200px,500px) minmax(100px,500px) minmax(200px,500px) minmax(300px,700px);
+    grid-template-columns: minmax(130px,500px) minmax(170px,500px) minmax(200px,500px) minmax(300px,700px);
     word-break: break-all;
     padding: 5px 40px;
     gap:34px;
@@ -68,12 +68,21 @@
     padding-right: 38px;
     padding-bottom: 20px;
 }
-.nft-status{
+.brand-status{
     background: #F1FFEA;
     border-radius: 3px;
     padding: 5px 15px;
-    width: 82px;
+
     color: #24B117;
+    font-weight: 500;
+    font-size: 14px;
+}
+.brand-status-rejected{
+    background: #ffeaea;
+    border-radius: 3px;
+    padding: 5px 15px;
+
+    color: #b11717;
     font-weight: 500;
     font-size: 14px;
 }

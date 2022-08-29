@@ -23,18 +23,22 @@ const Brands = () => {
   const brandHandler = (e) =>{
     setBrand(e.target.value)
   }
+  const coverHandler = (e) =>{
+    setCover(e.target.files[0])
+  }
+
   const validator = () =>{
     if(url === ''){
-      setIsUrl(true);
+        setIsUrl(true);
     }else{
-      setIsUrl(false);
+        setIsUrl(false);
     }
-    if(!isUrl){
-      return false;
+    if(url === ' '){
+        return false;
     }else{
-      return true;
+        return true;
     }
-  }
+}
   const formSubmit = (e) =>{
     e.preventDefault()
     var result = validator();
@@ -67,17 +71,18 @@ const Brands = () => {
           toast.success("Brand Created Successfully",{
             toastId:"2"
           });
-          setBrand("")
-          setUrl("")
+          var inputfile = document.getElementById("file-input-field");
+          inputfile.value = "";
+          setBrand(" ")
+          setCover(" ")
+          setUrl(" ")
           setLoading(false)
       })
       .catch(error => console.log('error', error));
     }
   }
 
-  const coverHandler = (e) =>{
-    setCover(e.target.files[0])
-  }
+
   useEffect(()=>{
     if(cover){
       var formdata = new FormData();
@@ -153,6 +158,7 @@ const Brands = () => {
               <h6 className='mt-16 f-400'>Accepted documents: ID Proof, Company ID Proof</h6>
               <div className={`mt-16 ${styles["brands-file-upload"]}`}>
                 <input 
+                  id='file-input-field'
                   type='file'
                   ref={fileRef}
                   multiple={false}

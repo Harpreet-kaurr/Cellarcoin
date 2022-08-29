@@ -1,7 +1,7 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import styles from '.././css/Vendor Panel/signup.module.css'
 import useFirebaseAuth from '../../auth/useFirebaseAuth';
-import {setOnBoardCookie,removeOnBoardCookie } from '../../auth/userCookies';
+import {setOnBoardCookie,removeOnBoardCookie,getOnBoardFromCookie } from '../../auth/userCookies';
 import {useRouter} from 'next/router'
 import Loader from './Loader';
 import { ToastContainer, toast } from 'react-toastify';
@@ -26,7 +26,12 @@ export default function Login() {
     const signupHandler = () =>{
         router.push("/vendors")
     }
-
+    var JWTtoken = getOnBoardFromCookie();
+    useEffect(()=>{
+        if(JWTtoken){
+            router.push("/vendorDashboard")
+        }
+    },[])
     const formSubmit = (e) =>{
         e.preventDefault()
         signInWithEmailAndPassword(email,password)

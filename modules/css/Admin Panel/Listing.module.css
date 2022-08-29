@@ -6,11 +6,13 @@
 }
 .listing-content-wrapper{
     margin-left: 64px;
+    margin-top: 12px;
 }
 .listing-content-brands{
     line-height: 27px;
     color: #747474;
     margin-top: 16px;
+    height: 108px;
 }
 .listing-content-wine-name{
     line-height: 38px;
@@ -102,6 +104,9 @@
 .listing-vendor-content{
     margin-top: 16px;
 }
+.listing-name{
+    height: 39px;
+}
 /* scroller style */
 .table-wrapper::-webkit-scrollbar {
     width:3px;
@@ -173,11 +178,11 @@
     .listing-content-wrapper{
         margin-left: 0px;
     }
-    .listing-price-and-vendor-wrapper{
+    /* .listing-price-and-vendor-wrapper{
         flex-direction: column;
         align-items: flex-start;
         gap:20px;
-    }
+    } */
     .listing-price-h5{
         font-weight: 600;
     }

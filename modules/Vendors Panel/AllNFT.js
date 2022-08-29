@@ -8,31 +8,37 @@ import Modal from './Modal';
 import Loader from './Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useRouter} from 'next/router'
 const AllNFT = () => {
     const[data,setData] = useState('');
     const[searchData,setSearchData] = useState('');
     const [isDelete,setDelete] = useState(false);
     const [deleteUserId,setDeleteUserId] = useState("")
     const [loading,setLoading] = useState(false);
+    const router = useRouter();
     var JWTtoken = getOnBoardFromCookie();
     
     useEffect(()=>{
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization","Bearer "+JWTtoken);
-        myHeaders.append("Content-Type","application/json");
+        if(JWTtoken){
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization","Bearer "+JWTtoken);
+            myHeaders.append("Content-Type","application/json");
 
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-        };
-        setLoading(true)
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNft`, requestOptions)
-        .then(response => response.json())
-        .then(result =>{
-            setData(result.data)
-            setLoading(false)
-        })
-        .catch(error => console.log('error', error));
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+            };
+            setLoading(true)
+            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}vendor/getNft`, requestOptions)
+            .then(response => response.json())
+            .then(result =>{
+                setData(result.data)
+                setLoading(false)
+            })
+            .catch(error => console.log('error', error));
+        }else{
+            router.push("/vendorlogin")
+        }
     },[])
 
     const searchHandler = (e) =>{

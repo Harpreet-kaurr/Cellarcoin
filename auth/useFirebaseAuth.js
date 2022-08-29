@@ -15,7 +15,6 @@ export default function useFirebaseAuth(){
         photo: user.photoURL
     });
     const authStateChanged = async (authState) => {
-        console.log("i m in auth state change")
         if(!authState){ 
             setLoading(false);
             setAuthUser(null);
